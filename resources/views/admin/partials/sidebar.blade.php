@@ -39,7 +39,7 @@
         {{--<a href="/companies/{{$company->id}}/edit" class="list-group-item">اطلاعات صفحه اصلی</a>--}}
         <a href="/job_posts/create" class="list-group-item">add job post</a>
         <a href="/companies/{{$user->company_id,['user'=>$user]}}/edit" class="list-group-item">اطلاعات صفحه اصلی</a>
-        {{--<a href="/job_posts" class="list-group-item">آگهی های در انتظار تایید</a>--}}
+        {{--<a href="/JobPosts" class="list-group-item">آگهی های در انتظار تایید</a>--}}
 
 
             <a class="list-group-item"

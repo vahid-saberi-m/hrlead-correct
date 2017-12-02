@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Cv_folderUser extends Model
+class CvFolderUser extends Model
 {
     //
     protected $fillable = ['user_id','cv_folder_id', 'company_id'];

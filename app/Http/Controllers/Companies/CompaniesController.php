@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Job_post;
+use App\Models\Company;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-
-class Job_postsController extends Controller
+class CompaniesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +18,8 @@ class Job_postsController extends Controller
     {
         //
         if (Auth::check()) {
-            $job_posts = Job_post::where('user_id', Auth::user()->id)->get();
-            return view('job_posts.index', ['job_posts' => $job_posts]);
+            $company = Company::where('user_id', Auth::User()->id)->get();
+            return view('Companies.index', ['Companies' => $company]);
         }
     }
 
@@ -28,10 +28,10 @@ class Job_postsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id = null)
+    public function create()
     {
         //
-        return view('job_posts.create', ['company_id'=>$id]);
+        return view('Companies.create');
     }
 
     /**
@@ -40,25 +40,30 @@ class Job_postsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Job_post $request)
+    public function store(Request $request)
     {
         //
         if (Auth::check()){
-            $job_post = Job_post::create([
-                'title'=> $request->input('job_post_title'),
+            $company = Company::create([
+                'name'=> $request->input('name'),
+                'company_size'=> $request->input('company_size'),
+                'slogan'=> $request->input('slogan'),
+                'website'=> $request->input('website'),
+                'logo'=> $request->input('logo'),
+                'message_title'=> $request->input('message_title'),
+                'message_content'=> $request->input('message_content'),
+                'main_photo'=> $request->input('main_photo'),
+                'about_us'=> $request->input('about_us'),
+                'why_us'=> $request->input('why_us'),
+                'recruiting_steps'=> $request->input('recruiting_steps'),
+                'address'=> $request->input('address'),
+                'email'=> $request->input('email'),
+                'phone_number'=> $request->input('phone_number'),
                 'location'=> $request->input('location'),
-                'summary'=> $request->input('summary'),
-                'description'=> $request->input('description'),
-                'requirements'=> $request->input('requirements'),
-                'benefits'=> $request->input('benefits'),
-                'publish_date'=> $request->input('publish_date'),
-                'expiration_date'=> $request->input('expiration_date'),
-                'approval'=> 'not approved',
-                'user_id'=> auth()->user()->id,
-                'company_id'=> $request->input('company_id')
+                'user_id'=> auth()->user()->id
             ]);
-            if($job_post){
-                return redirect()->route('job_posts.show', ['Job_post'=> $job_post->id])
+            if($company){
+                return redirect()->route('Companies.show', ['company'=> $company->id])
                     ->with('success',' صفحه شرکت با موفقیت ساخته شد.');
             }
         }
@@ -68,31 +73,30 @@ class Job_postsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Job_post  $job_post
+     * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function show(Job_post $job_post)
+    public function show(Company $company)
     {
         //
-        if (Auth::check()) {
-            $job_post = Job_post::find($job_post->id);
-            return view('job_posts.show', ['job_post' => $job_post]);
+            $company = Company::find($company->id);
+            return view('Companies.show', ['company' => $company]);
         }
-    }
+
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Job_post  $job_post
+     * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function edit(Job_post $job_post)
+    public function edit(Company $company)
     {
         //
         if (Auth::check()){
 
-            $job_post = Job_post::find($job_post ->id);
-            return view('job_posts.edit',['Job_post'=>$job_post] );
+        $company = Company::find($company -> id);
+        return view('Companies.edit',['company'=>$company] );
         }
         return view('auth.login');
     }
@@ -101,15 +105,15 @@ class Job_postsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Job_post  $job_post
+     * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Job_post $job_post)
+    public function update(Request $request, Company $company)
     {
         //save
-        $job_postUpdate = Job_post::where('id' , $job_post->id )->update([
+        $companyUpdate = Company::where('id' , $company->id )->update([
             'name'=> $request->input('name'),
-            'Job_post_size'=> $request->input('Job_post_size'),
+            'company_size'=> $request->input('company_size'),
             'slogan'=> $request->input('slogan'),
             'website'=> $request->input('website'),
             'logo'=> $request->input('logo'),
@@ -124,8 +128,8 @@ class Job_postsController extends Controller
             'phone_number'=> $request->input('phone_number'),
             'location'=> $request->input('location'),
         ]);
-        if ($job_postUpdate){
-            return redirect() ->route('job_posts.show', ['Job_post'=> $job_post ->id])
+        if ($companyUpdate){
+            return redirect() ->route('Companies.show', ['company'=> $company ->id])
                 ->with('success','اطلاعات صفحه اصلی سایت استخدامی شما با موفقیت به روز رسانی شد. ' ) ;
         }
         //redirect
@@ -136,17 +140,17 @@ class Job_postsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Job_post  $job_post
+     * @param  \App\Company  $company
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Job_post $job_post)
+    public function destroy(Company $company)
     {
         //
-        $findJob_post = Job_post::find($job_post->id);
-        if ($findJob_post->delete()){
+        $findCompany = Company::find($company->id);
+        if ($findCompany->delete()){
             //redirect
-            return redirect()->route('job_posts.index');
-            with('success', 'سایت استخدامی شما پاک شد');
+            return redirect()->route('Companies.index');
+                with('success', 'سایت استخدامی شما پاک شد');
         }
         return back()->withInput()->with('error','سیستم موفق به پاک کردن سایت استخدامی شما نشد');
 

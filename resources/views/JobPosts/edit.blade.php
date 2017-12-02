@@ -1,8 +1,8 @@
-@extends('app')
+@extends('layouts/app')
 @section('content')
     <div class="col-lg-9 col-md-9 col-sm-9 pull-left" xmlns="http://www.w3.org/1999/html"
          xmlns="http://www.w3.org/1999/html">
-<form method="post" action="{{route('companies.update', [$company-> id])}}">
+<form method="post" action="{{route('Companies.update', [$company-> id])}}">
     <input type="hidden" name="_method" value="put">
     {{csrf_field()}}
         <div class="form-group">
@@ -40,6 +40,7 @@
                    class="form-control"
                    value="{{$company->website}}"
             />
+        </div>
 
 
 
@@ -98,7 +99,7 @@
                         class="form-control"
                         value="{{$company->main_photo}}"
                 />
-
+            </div>
                 <div class="form-group">
                     <lable for="about_us">درباره ما</lable><span class="required">*</span></label>
                     <textarea id="about_us"

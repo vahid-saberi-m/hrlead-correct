@@ -19,6 +19,7 @@
         "vue": "^2.1.10"
     },
     "dependencies": {
+        "bootstrap": "^3.3.7",
         "propellerkit": "^1.1.0",
         "propellerkit-custom-scrollbar": "^1.1.0",
         "propellerkit-datatables": "^1.1.0",

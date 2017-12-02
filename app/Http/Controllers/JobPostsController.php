@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Company;
-use App\User;
+use App\Models\JobPost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class CompaniesController extends Controller
+
+class JobPostsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +18,8 @@ class CompaniesController extends Controller
     {
         //
         if (Auth::check()) {
-            $company = Company::where('user_id', Auth::user()->id)->get();
-            return view('companies.index', ['companies' => $company]);
+            $JobPosts = JobPost::where('user_id', Auth::user()->id)->get();
+            return view('JobPosts.index', ['JobPosts' => $JobPosts]);
         }
     }
 
@@ -28,10 +28,10 @@ class CompaniesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id = null)
     {
         //
-        return view('companies.create');
+        return view('JobPosts.create', ['company_id'=>$id]);
     }
 
     /**
@@ -44,26 +44,21 @@ class CompaniesController extends Controller
     {
         //
         if (Auth::check()){
-            $company = Company::create([
-                'name'=> $request->input('name'),
-                'company_size'=> $request->input('company_size'),
-                'slogan'=> $request->input('slogan'),
-                'website'=> $request->input('website'),
-                'logo'=> $request->input('logo'),
-                'message_title'=> $request->input('message_title'),
-                'message_content'=> $request->input('message_content'),
-                'main_photo'=> $request->input('main_photo'),
-                'about_us'=> $request->input('about_us'),
-                'why_us'=> $request->input('why_us'),
-                'recruiting_steps'=> $request->input('recruiting_steps'),
-                'address'=> $request->input('address'),
-                'email'=> $request->input('email'),
-                'phone_number'=> $request->input('phone_number'),
+            $JobPost = JobPost::create([
+                'title'=> $request->input('job_post_title'),
                 'location'=> $request->input('location'),
-                'user_id'=> auth()->user()->id
+                'summary'=> $request->input('summary'),
+                'description'=> $request->input('description'),
+                'requirements'=> $request->input('requirements'),
+                'benefits'=> $request->input('benefits'),
+                'publish_date'=> $request->input('publish_date'),
+                'expiration_date'=> $request->input('expiration_date'),
+                'approval'=> '0',
+                'user_id'=> auth()->user()->id,
+                'company_id'=> auth()->user()->company_id,
             ]);
-            if($company){
-                return redirect()->route('companies.show', ['company'=> $company->id])
+            if($JobPost){
+                return redirect()->route('JobPosts.show', ['JobPost'=> $JobPost->id])
                     ->with('success',' صفحه شرکت با موفقیت ساخته شد.');
             }
         }
@@ -73,31 +68,36 @@ class CompaniesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Company  $company
+     * @param  \App\Models\JobPost  $JobPost
      * @return \Illuminate\Http\Response
      */
-    public function show(Company $company)
+    public function show(JobPost $JobPost)
     {
         //
         if (Auth::check()) {
-            $company = Company::find($company->id);
-            return view('companies.show', ['company' => $company]);
+            $JobPost = JobPost::find($JobPost->id);
+            $cvFolders = $JobPost->cv_folders;
+
+            return view('JobPosts.show', [
+                'JobPost' => $JobPost,
+                'cvFolders' => $cvFolders
+            ]);
         }
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Company  $company
+     * @param  \App\Models\JobPost  $JobPost
      * @return \Illuminate\Http\Response
      */
-    public function edit(Company $company)
+    public function edit(JobPost $JobPost)
     {
         //
         if (Auth::check()){
 
-        $company = Company::find($company ->id);
-        return view('companies.edit',['company'=>$company] );
+            $JobPost = JobPost::find($JobPost ->id);
+            return view('JobPosts.edit',['JobPost'=>$JobPost] );
         }
         return view('auth.login');
     }
@@ -106,15 +106,15 @@ class CompaniesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Company  $company
+     * @param  \App\Models\JobPost  $JobPost
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company)
+    public function update(Request $request, JobPost $JobPost)
     {
         //save
-        $companyUpdate = Company::where('id' , $company->id )->update([
+        $JobPostUpdate = JobPost::where('id' , $JobPost->id )->update([
             'name'=> $request->input('name'),
-            'company_size'=> $request->input('company_size'),
+            'JobPost_size'=> $request->input('JobPost_size'),
             'slogan'=> $request->input('slogan'),
             'website'=> $request->input('website'),
             'logo'=> $request->input('logo'),
@@ -129,8 +129,8 @@ class CompaniesController extends Controller
             'phone_number'=> $request->input('phone_number'),
             'location'=> $request->input('location'),
         ]);
-        if ($companyUpdate){
-            return redirect() ->route('companies.show', ['company'=> $company ->id])
+        if ($JobPostUpdate){
+            return redirect() ->route('JobPosts.show', ['JobPost'=> $JobPost ->id])
                 ->with('success','اطلاعات صفحه اصلی سایت استخدامی شما با موفقیت به روز رسانی شد. ' ) ;
         }
         //redirect
@@ -141,17 +141,17 @@ class CompaniesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Company  $company
+     * @param  \App\Models\JobPost  $JobPost
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Company $company)
+    public function destroy(JobPost $JobPost)
     {
         //
-        $findCompany = Company::find($company->id);
-        if ($findCompany->delete()){
+        $findJobPost = JobPost::find($JobPost->id);
+        if ($findJobPost->delete()){
             //redirect
-            return redirect()->route('companies.index');
-                with('success', 'سایت استخدامی شما پاک شد');
+            return redirect()->route('JobPosts.index');
+            with('success', 'سایت استخدامی شما پاک شد');
         }
         return back()->withInput()->with('error','سیستم موفق به پاک کردن سایت استخدامی شما نشد');
 

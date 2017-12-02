@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Cv_folder;
+use App\Models\CvFolder;
 use Illuminate\Http\Request;
 
-class Cv_foldersController extends Controller
+class CvFoldersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class Cv_foldersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Cv_folder  $cv_folder
+     * @param  \App\Models\CvFolder  $cv_folder
      * @return \Illuminate\Http\Response
      */
-    public function show(Cv_folder $cv_folder)
+    public function show(CvFolder $cv_folder)
     {
         //
     }
@@ -52,10 +52,10 @@ class Cv_foldersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Cv_folder  $cv_folder
+     * @param  \App\Models\CvFolder  $cv_folder
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cv_folder $cv_folder)
+    public function edit(CvFolder $cv_folder)
     {
         //
     }
@@ -64,10 +64,10 @@ class Cv_foldersController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Cv_folder  $cv_folder
+     * @param  \App\Models\CvFolder  $cv_folder
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cv_folder $cv_folder)
+    public function update(Request $request, CvFolder $cv_folder)
     {
         //
     }
@@ -75,10 +75,10 @@ class Cv_foldersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Cv_folder  $cv_folder
+     * @param  \App\Models\CvFolder  $cv_folder
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cv_folder $cv_folder)
+    public function destroy(CvFolder $cv_folder)
     {
         //
     }

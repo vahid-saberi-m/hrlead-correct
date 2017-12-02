@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Cv_folderUser;
+use App\Models\JobPostUser;
 use Illuminate\Http\Request;
 
-class Cv_folderUsersController extends Controller
+class JobPostUsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class Cv_folderUsersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Cv_folderUser  $cv_folderUser
+     * @param  \App\Models\JobPostUser  $job_postUser
      * @return \Illuminate\Http\Response
      */
-    public function show(Cv_folderUser $cv_folderUser)
+    public function show(Job_postUser $job_postUser)
     {
         //
     }
@@ -52,10 +52,10 @@ class Cv_folderUsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Cv_folderUser  $cv_folderUser
+     * @param  \App\Models\JobPostUser  $job_postUser
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cv_folderUser $cv_folderUser)
+    public function edit(Job_postUser $job_postUser)
     {
         //
     }
@@ -64,10 +64,10 @@ class Cv_folderUsersController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Cv_folderUser  $cv_folderUser
+     * @param  \App\Models\JobPostUser  $job_postUser
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cv_folderUser $cv_folderUser)
+    public function update(Request $request, Job_postUser $job_postUser)
     {
         //
     }
@@ -75,10 +75,10 @@ class Cv_folderUsersController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Cv_folderUser  $cv_folderUser
+     * @param  \App\Models\JobPostUser  $job_postUser
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cv_folderUser $cv_folderUser)
+    public function destroy(Job_postUser $job_postUser)
     {
         //
     }

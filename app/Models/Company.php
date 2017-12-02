@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,10 +25,10 @@ class Company extends Model
         'phone_number',
         'location',
     ];
-    public function users(){
-        return $this->hasMany('App\user');
+    public function Users(){
+        return $this->hasMany('App\Models\User');
     }
     public function job_posts(){
-        return $this->hasMany('App\job_post');
+        return $this->hasMany('App\Models\JobPost');
     }
 }

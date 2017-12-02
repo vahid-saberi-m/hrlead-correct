@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Cv_id;
+use App\Models\CvFolderUser;
 use Illuminate\Http\Request;
 
-class Cv_idsController extends Controller
+class CvFolderUsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class Cv_idsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Cv_id  $cv_id
+     * @param  \App\Models\CvFolderUser  $CvFolderUser
      * @return \Illuminate\Http\Response
      */
-    public function show(Cv_id $cv_id)
+    public function show(CvFolderUser $CvFolderUser)
     {
         //
     }
@@ -52,10 +52,10 @@ class Cv_idsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Cv_id  $cv_id
+     * @param  \App\Models\CvFolderUser  $CvFolderUser
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cv_id $cv_id)
+    public function edit(CvFolderUser $CvFolderUser)
     {
         //
     }
@@ -64,10 +64,10 @@ class Cv_idsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Cv_id  $cv_id
+     * @param  \App\Models\CvFolderUser  $CvFolderUser
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cv_id $cv_id)
+    public function update(Request $request, CvFolderUser $CvFolderUser)
     {
         //
     }
@@ -75,10 +75,10 @@ class Cv_idsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Cv_id  $cv_id
+     * @param  \App\Models\CvFolderUser  $CvFolderUser
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cv_id $cv_id)
+    public function destroy(CvFolderUser $CvFolderUser)
     {
         //
     }

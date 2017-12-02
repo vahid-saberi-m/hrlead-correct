@@ -14,27 +14,53 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::resource('companies', 'CompaniesController@show');
 
-Route::middleware(['auth'])-> group(function (){
-Route::resource('applications', 'ApplicationsController');
-Route::resource('candidates', 'CandidatesController');
 
-Route::resource('companies', 'CompaniesController');
-Route::resource('Cv_folders', 'Cv_foldersController');
-Route::resource('Cv_folderUsers', 'Cv_folderUsersController');
-Route::resource('Cv_ids', 'Cv_idsController');
-Route::resource('histories', 'HistoriesController');
-Route::get('job_posts/create/{id?}', 'Job_postsController@create');
-Route::resource('job_posts', 'Job_postsController');
-Route::resource('job_postUsers', 'job_postUsersController');
-Route::resource('users', 'UsersController');
+//Route::resource('Companies', 'Companies/CompaniesController@show', ['only' => [
+//    'index', 'show'
+//]]);
+Route::get('/UserHome', function () {
+    return view('pages.userhome');
+
+});
+
+//Route::get('companies/{id?}', function ($id){
+//    route('CompaniesController'). $id ;
+//});
+
+Route::middleware(['auth'])->group(function () {
+    Route::resource('applications', 'ApplicationsController');
+    Route::resource('candidates', 'CandidatesController');
+    Route::resource('companies', 'CompaniesController'
+//        , ['except' => [
+//        'index', 'show']]
+    );
+//            Route::resource('companies', 'CompaniesController');
+    Route::resource('CvFolders', 'CvFoldersController');
+    Route::resource('CvFolderUsers', 'CvFolderUsersController');
+    Route::resource('CvUsers', 'CvUsersController');
+    Route::resource('Histories', 'HistoriesController');
+    Route::get('JbPosts/create/{id?}', 'JobPostsController@create');
+    Route::resource('JobPosts', 'JobPostsController');
+    Route::resource('JobPostUsers', 'JobPostUsersController');
+    Route::resource('Users', 'UsersController');
 });
 
 Route::get('/]', function () {
     return view('welcome');
 });
+Route::get('/login]', function () {
+    return view('auth.login');
+});
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
+Route::get('test/aka/{param}', 'Test\TestController@amghezi');
+Route::resource('test', 'Test\TestController');
+
+Route::get('/app', function () {
+    return view('layouts.testarea');
+});

@@ -27,7 +27,7 @@ class AddForeignCompanies extends Migration
     public function down()
     {
         //
-        Schema::table('job_posts', function (Blueprint $table) {
+        Schema::table('JobPosts', function (Blueprint $table) {
             $table->dropForeign([ 'user_id']);
         });
     }

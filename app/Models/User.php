@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'company_id','name', 'email', 'password','role','position'
+        'company_id', 'name', 'email', 'password', 'role', 'position'
     ];
 
     /**
@@ -26,16 +26,23 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-    public function cv_folders(){
-        return $this->belongsToMany('App\cv_folder','cv_folder_id');
-    }
-    public function job_posts(){
-        return $this->belongsToMany('App\job_post');
+
+    public function cv_folders()
+    {
+        return $this->belongsToMany('App\Models\CvFolder', 'cv_folder_user');
     }
 
-    public function company(){
-        return $this->belongsTo('App\company');
+    public function job_posts()
+    {
+        return $this->hasMany('App\Models\JobPost');
     }
+
+    public function company()
+    {
+        return $this->belongsTo('App\Models\Company');
+    }
+
+
 
 
 

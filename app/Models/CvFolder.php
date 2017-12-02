@@ -1,10 +1,10 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Cv_folder extends Model
+class CvFolder extends Model
 {
     //
     protected $fillable = [
@@ -15,12 +15,12 @@ class Cv_folder extends Model
     ];
 
     public function users(){
-        return $this->belongsToMany('App\Models\user', 'cv_folder_user' );
+        return $this->belongsToMany('App\Models\User', 'cv_folder_user' );
     }
     public function job_post(){
-        return $this->belongsTo('App\job_post');
+        return $this->belongsTo('App\Models\JobPost');
     }
     public function company(){
-        return $this->belongsTo('App\company');
+        return $this->belongsTo('App\Models\Company');
     }
 }

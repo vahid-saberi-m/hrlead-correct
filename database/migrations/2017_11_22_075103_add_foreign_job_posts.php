@@ -14,7 +14,7 @@ class AddForeignJobPosts extends Migration
     public function up()
     {
         //
-        Schema::table('job_posts', function (Blueprint $table) {
+        Schema::table('JobPosts', function (Blueprint $table) {
             $table->foreign('company_id')->references('id')->on('companies');
             $table->foreign('user_id')->references('id')->on('users');;
         });
@@ -28,7 +28,7 @@ class AddForeignJobPosts extends Migration
     public function down()
     {
         //
-        Schema::table('job_posts', function (Blueprint $table) {
+        Schema::table('JobPosts', function (Blueprint $table) {
             $table->dropForeign(['company_id', 'user_id']);
         });
 

@@ -20,7 +20,7 @@
                 <div class="col-lg-4">
                     <h2>{{$job_post->title}}</h2>
                     <p class="text-danger">{{$job_post->summary}}</p>
-                    <p><a class="btn btn-primary" href="/job_posts/{{$job_post->id}}" role="button">View details »</a></p>
+                    <p><a class="btn btn-primary" href="/JobPosts/{{$job_post->id}}" role="button">View details »</a></p>
                 </div>
             @endforeach
         </div>

@@ -18,7 +18,7 @@ class CreateJobPostUserTable extends Migration
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedInteger('job_post_id');
-            $table->foreign('job_post_id')->references('id')->on('job_posts');
+            $table->foreign('job_post_id')->references('id')->on('JobPosts');
             $table->timestamps();
         });
     }

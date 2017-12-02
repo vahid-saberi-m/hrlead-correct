@@ -1,5 +1,6 @@
-<<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
-    <div class="list-group">
+
+<div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar">
+    <div class="list-group" >
         <a href="#" class="list-group-item active">خانه</a>
         <a href="/companies/{{$company->id}}/edit" class="list-group-item">edit</a>
         <a href="/job_posts/create/{{$company->id}}" class="list-group-item">add job post</a>
@@ -29,10 +30,9 @@
 
 
         </li>        <a href="#" class="list-group-item">add new user</a>
-        {{--<a href="#" class="list-group-item">کارکنان</a>--}}
-        {{--<a href="#" class="list-group-item">کاربران</a>--}}
-        {{--<a href="#" class="list-group-item">پروفایل</a>--}}
+        <a href="#" class="list-group-item">کارکنان</a>
+        <a href="#" class="list-group-item">کاربران</a>
+        <a href="#" class="list-group-item">پروفایل</a>
 
     </div>
 </div>
-

@@ -1,8 +1,8 @@
-@extends('app')
+@extends('layouts/app')
 @section('content')
     <div class="col-lg-9 col-md-9 col-sm-9 pull-left" xmlns="http://www.w3.org/1999/html"
          xmlns="http://www.w3.org/1999/html">
-        <form method="post" action="{{route('job_posts.store')}}">
+        <form method="post" action="{{route('JobPosts.store')}}">
             {{csrf_field()}}
             {{--<div class="form-group">--}}
                 <lable for="job_post_title">عنوان شغل</lable><span class="required">*</span></label>

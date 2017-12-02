@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,12 +16,12 @@ class Application extends Model
     ];
 
     public function candidate(){
-        return $this->belongsTo('App\candidate');
+        return $this->belongsTo('App\Models\Candidate');
     }
-    public function job_post(){
-        return $this->belongsTo('App\job_post');
+    public function JobPost(){
+        return $this->belongsTo('App\Models\JobPost');
     }
-    public function cv_id(){
-        return $this->belongsTo('App\cv_id');
+    public function CvUser(){
+        return $this->belongsTo('App\Models\CvUser');
     }
 }
