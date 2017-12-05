@@ -28,7 +28,7 @@ class Company extends Model
     public function Users(){
         return $this->hasMany('App\Models\User');
     }
-    public function job_posts(){
-        return $this->hasMany('App\Models\JobPost');
+    public function JobPosts(){
+        return $this->hasMany('App\Models\JobPost', 'company_id');
     }
 }

@@ -1,211 +1,145 @@
-@extends('layouts/app')
-@section('content')
-    <div class="col-lg-9 col-md-9 col-sm-9 pull-left" xmlns="http://www.w3.org/1999/html"
-         xmlns="http://www.w3.org/1999/html">
-<form method="post" action="{{route('Companies.update', [$company-> id])}}">
-    <input type="hidden" name="_method" value="put">
-    {{csrf_field()}}
-        <div class="form-group">
-            <lable for="company-name">نام شرکت</lable><span class="required">*</span></label>
-                <input placeholder="نام شرکت را وارد نمایید"
-                       id="company-name"
-                       required
-                       name="name"
-                       spellcheck="false"
-                       class="form-control"
-                       value="{{$company->name}}"
-                />
+@extends('users/show')
+@section('section')
+    <div class="col-lg-9 pull-right ">
+        <div class="box box-info ">
+            <div class="box-header with-border">
+                <h3 class="box-title">مشخصات آگهی شغلی</h3>
+            </div>
+            <!-- /.box-header -->
+            <!-- form start -->
+            <div class="box-body">
+                <div class="form-group">
+                    <form method="post" class="form-horizontal" action="{{route('jobposts.update', [$jobpost-> id])}}">
+                       {{csrf_field()}}
+                        {{ method_field('PUT') }}
+                        <div class="form-group">
+                        <label for="title" class="col-sm-2 control-label">عنوان شغل</label>
+
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="job_post_title" placeholder="عنوان"
+                                   value="{{$jobpost->title}}" name="title" >
+                        </div>
+
+                            <label for="location" class="col-sm-2 control-label">موقعیت مکانی</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="location" placeholder="تهران"
+                                       value="{{$jobpost->location}}" name="location">
+                            </div>
+
+                            <label for="summary" class="col-sm-2 control-label">پیش نمایش</label>
+
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="summary" placeholder="خلاصه ای از شرح شغل"
+                                       value="{{$jobpost->summary}}" name="summary">
+                            </div>
+
+
+                                <div class="form-group col-sm-10 pull-right">
+                               <lable for="description" class="col-sm-2 control-label">شرح شغل</lable>
+
+
+                                <textarea id="description"
+                                          required
+                                          name="description"
+                                          spellcheck="false"
+                                          class="form-control col-md-6">
+                                  {{$jobpost->description}}
+                                </textarea>
+                                </div>
+
+                            <div class="form-group col-sm-10 pull-right">
+                            <lable for="requirements">ویژگی های مورد نیاز</lable>
+                            <span class="required">*</span></label>
+                            <textarea id="requirements"
+                                      required
+                                      name="requirements"
+                                      spellcheck="false"
+                                      class="form-control">
+                        {{$jobpost->requirements}}
+                </textarea>
+                        </div>
+
+                            <div class="form-group col-sm-10 pull-right">
+
+                            <lable for="benefits">مزایا</lable>
+                            <span class="required">*</span></label>
+                            <textarea id="benefits"
+                                      required
+                                      name="benefits"
+                                      spellcheck="false"
+                                      class="form-control">
+                        {{$jobpost->benefits}}
+                </textarea>
+                        </div>
+
+
+                        {{--            @include('layouts.partials.daterange')--}}
+
+                            <div class="form-group col-sm-10 pull-right">
+                            <lable for="publish_date">تاریخ انتشار</lable>
+                            <span class="required">*</span></label>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input
+                                        class="form-control pull-right"
+                                        type="date"
+                                        id="publish_date"
+                                        required
+                                        name="publish_date"
+                                        value="{{$jobpost->publish_date}}"
+                                />
+                            </div>
+                            </div>
+
+                            <div class="form-group col-sm-10 pull-right">
+                                <lable for="expiration_date">تاریخ انقضا</lable>
+                                <span class="required">*</span></label>
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-calendar"></i>
+                                    </div>
+                                    <input
+                                            class="form-control pull-right"
+                                            type="date"
+                                            id="expiration_date"
+                                            required
+                                            name="expiration_date"
+                                            value="{{$jobpost->expiration_date}}"
+                                    />
+                                </div>
+
+
+
+                        <div>
+                            <button type="submit" class="btn btn-info pull-right">اعمال تغییرات</button>
+                        </div>
+                            </div>
+                        </div>
+                        <!-- /.box-footer -->
+                    </form>
+                </div>
+            </div>
+
+
+
+
+
+            </div>
+
         </div>
 
-    <div class="form-group">
-        <lable for="company-size">تعداد کارکنان</lable><span class="required">*</span></label>
-        <input placeholder=""
-               id="company_size"
-               required
-               name="company_size"
-               spellcheck="false"
-               class="form-control"
-               value="{{$company->company_size}}"
-        />
-    </div>
+
+        <!-- Site footer -->
+        <footer class="footer">
+
+        </footer>
 
 
-        <div class="form-group">
-            <lable for="company-website">آدرس وبسایت</lable><span class="required">*</span></label>
-            <input placeholder="example.com"
-                   id="company-website"
-                   required
-                   name="website"
-                   spellcheck="false"
-                   class="form-control"
-                   value="{{$company->website}}"
-            />
-        </div>
+@endsection
 
 
-
-    <div class="form-group">
-        <lable for="company_slogan">شعار استخدامی</lable><span class="required">*</span></label>
-        <input placeholder="کنار ما کار کنید"
-                  id="company_slogan"
-                  required
-                  name="slogan"
-                  spellcheck="false"
-                  class="form-control"
-                  value="{{$company->slogan}}"
-        />
-    </div>
-            <div class="form-group">
-                <lable for="company_logo">لوگوی شرکت</lable><span class="required">*</span></label>
-                <input
-                        type="file"
-                       id="company_logo"
-                       required
-                       name="logo"
-                       class="form-control"
-                       value="{{$company->logo}}"
-                />
-            </div>
-            <div class="form-group">
-                <lable for="company_message_title">عنوان پیام</lable><span class="required">*</span></label>
-                <input placeholder="در یک فضای خلاق در کنار ما باشید"
-                       id="company_message_title"
-                       required
-                       name="message_title"
-                       spellcheck="false"
-                       class="form-control"
-                       value="{{$company->message_title}}"
-                />
-            </div>
-
-            <div class="form-group">
-                <lable for="company_message_content">متن پیام</lable><span class="required">*</span></label>
-                <textarea id="company_message_content"
-                       required
-                       name="message_content"
-                       spellcheck="false"
-                       class="form-control">
-                    {{$company->message_content}}
-                </textarea>
-            </div>
-
-            <div class="form-group">
-                <lable for="main_photo">عکس اصلی صفحه</lable><span class="required">*</span></label>
-                <input
-                        type="file"
-                        id="main_photo"
-                        required
-                        name="logo"
-                        class="form-control"
-                        value="{{$company->main_photo}}"
-                />
-            </div>
-                <div class="form-group">
-                    <lable for="about_us">درباره ما</lable><span class="required">*</span></label>
-                    <textarea id="about_us"
-                              required
-                              name="about_us"
-                              spellcheck="false"
-                              class="form-control">
-                    {{$company->about_us}}
-                </textarea>
-                </div>
-
-                <div class="form-group">
-                    <lable for="why_us">چرا اینجا؟</lable><span class="required">*</span></label>
-                    <textarea id="about_us"
-                              required
-                              name="why_us"
-                              spellcheck="false"
-                              class="form-control">
-                    {{$company->why_us}}
-                </textarea>
-                </div>
-
-                <div class="form-group">
-                    <lable for="recruiting_steps">مراحل استخدام</lable><span class="required">*</span></label>
-                    <textarea id="recruiting_steps"
-                              required
-                              name="recruiting_steps"
-                              spellcheck="false"
-                              class="form-control">
-                    {{$company->recruiting_steps}}
-                </textarea>
-                </div>
-
-
-
-                <div class="form-group">
-                    <lable for="address">آدرس شرگت</lable><span class="required">*</span></label>
-                    <input placeholder="در یک فضای خلاق در کنار ما باشید"
-                           id="address"
-                           required
-                           name="address"
-                           spellcheck="false"
-                           class="form-control"
-                           value="{{$company->address}}"
-                    />
-                </div>
-
-                <div class="form-group">
-                    <lable for="email">آدرس ایمیل</lable><span class="required">*</span></label>
-                    <input placeholder="در یک فضای خلاق در کنار ما باشید"
-                           id="email"
-                           required
-                           name="email"
-                           spellcheck="false"
-                           class="form-control"
-                           value="{{$company->email}}"
-                    />
-                </div>
-
-                <div class="form-group">
-                    <lable for="phone_number">تلفن</lable><span class="required">*</span></label>
-                    <input
-                           id="phone_number"
-                           required
-                           name="phone_number"
-                           spellcheck="false"
-                           class="form-control"
-                           value="{{$company->phone_number}}"
-                    />
-                </div>
-
-                <div class="form-group">
-                    <lable for="location">موقعیت</lable><span class="required">*</span></label>
-                    <input
-                            id="location"
-                            required
-                            name="phone_number"
-                            spellcheck="false"
-                            class="form-control"
-                            value="{{$company->phone_number}}"
-                    />
-                </div>
-                <div class="form-group">
-
-                    <button type="submit">اعمال تغییرات</button>
-                </div>
-
-
-
-
-
-
-
-
-
-
-
-
-            <!-- Site footer -->
-            <footer class="footer">
-
-            </footer>
-
-
-        @endsection
-
-
-   @include('/admin/partials/sidebar')
+{{--@include('/admin/partials/sidebar')--}}
 

@@ -2,11 +2,11 @@
 @section('content')
     <div class="col-lg-9 col-md-9 col-sm-9 pull-left" xmlns="http://www.w3.org/1999/html"
          xmlns="http://www.w3.org/1999/html">
-        <form method="post" action="{{route('JobPosts.store')}}">
+        <form method="post" action="{{route('jobposts.store')}}">
             {{csrf_field()}}
             {{--<div class="form-group">--}}
                 <lable for="job_post_title">عنوان شغل</lable><span class="required">*</span></label>
-                <input placeholder="نام شرکت را وارد نمایید"
+                <input placeholder=""
                        id="job_post_title"
                        required
                        name="job_post_title"
@@ -21,7 +21,7 @@
             />
 
             <lable for="location">موقعیت مکانی</lable><span class="required">*</span></label>
-            <input placeholder="نام شرکت را وارد نمایید"
+            <input placeholder=""
                    id="location"
                    required
                    name="location"

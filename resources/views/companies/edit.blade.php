@@ -2,7 +2,7 @@
 @section('content')
     <div class="col-lg-9 col-md-9 col-sm-9 pull-left" xmlns="http://www.w3.org/1999/html"
          xmlns="http://www.w3.org/1999/html">
-<form method="post" action="{{route('Companies.update', [$company-> id])}}">
+<form method="post" action="{{route('companies.update', [$company-> id])}}">
     <input type="hidden" name="_method" value="put">
     {{csrf_field()}}
         <div class="form-group">

@@ -15,7 +15,7 @@ class Application extends Model
         'cv_id'
     ];
 
-    public function candidate(){
+    public function Candidate(){
         return $this->belongsTo('App\Models\Candidate');
     }
     public function JobPost(){

@@ -14,12 +14,18 @@ class UsersController extends Controller
      */
     public function index()
     {
-        //
-        $user = User::find($user ->id);
-//        if ($user->role =='admin' ){
-//            return view('admin.show');
-//        }
-//            return view('users.show',['user'=>$user]);
+        $company = auth()->user()->Company;
+        $user = auth()->user();
+        $jobposts = auth()->user()->JobPosts;
+            $users = $company->Users;
+            return view('users.index', [
+                'user'=> $user,
+                'users'=> $users,
+                'company'=>$company,
+                'jobposts'=> $jobposts
+            ]);
+
+
     }
 
     /**
@@ -52,13 +58,20 @@ class UsersController extends Controller
     public function show(User $user)
     {
         //
-        $user = User::find($user ->id);
-        if ($user->role =='admin' ){
-            return view('admin.show',['user'=>$user] );
+        $id = auth()->user()->id;
+        if ($id == $user->id) {
+            $user = User::find($user->id);
+            $jobposts = $user->JobPosts;
+            $company = $user->Company;
+
+//            return view('admin.show',['user'=>$user] );
+
+
+            return view('users.show', ['user' => $user,
+                'jobposts' => $jobposts,
+                'company' => $company,
+            ]);
         }
-
-        return view('users.show',['user'=>$user]);
-
     }
 
 

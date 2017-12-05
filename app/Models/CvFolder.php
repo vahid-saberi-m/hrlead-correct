@@ -14,13 +14,13 @@ class CvFolder extends Model
         'company_id'
     ];
 
-    public function users(){
+    public function Users(){
         return $this->belongsToMany('App\Models\User', 'cv_folder_user' );
     }
-    public function job_post(){
+    public function JobPost(){
         return $this->belongsTo('App\Models\JobPost');
     }
-    public function company(){
+    public function Company(){
         return $this->belongsTo('App\Models\Company');
     }
 }

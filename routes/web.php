@@ -31,19 +31,32 @@ Route::get('/UserHome', function () {
 Route::middleware(['auth'])->group(function () {
     Route::resource('applications', 'ApplicationsController');
     Route::resource('candidates', 'CandidatesController');
-    Route::resource('companies', 'CompaniesController'
-//        , ['except' => [
-//        'index', 'show']]
-    );
-//            Route::resource('companies', 'CompaniesController');
+    Route::resource('companies', 'CompaniesController');
     Route::resource('CvFolders', 'CvFoldersController');
     Route::resource('CvFolderUsers', 'CvFolderUsersController');
     Route::resource('CvUsers', 'CvUsersController');
     Route::resource('Histories', 'HistoriesController');
-    Route::get('JbPosts/create/{id?}', 'JobPostsController@create');
-    Route::resource('JobPosts', 'JobPostsController');
+    Route::get('jobposts/create/{id?}', 'JobPostsController@create');
+    Route::resource('/jobposts', 'JobPostsController');
     Route::resource('JobPostUsers', 'JobPostUsersController');
-    Route::resource('Users', 'UsersController');
+    Route::resource('user', 'UsersController');
+
+
+
+    Route::get('/jobposts.waiting/{id?}', 'JobPostsController@indexWaiting');
+    Route::get('/users/index/', 'UsersController@index');
+    Route::get('/jobposts.approved/{id?}', 'JobPostsController@indexapproved');
+    Route::post('jobposts.approval/approved', [
+        'as'=>'jobposts.approved',
+        'uses'=> 'JobPostsController@approved'
+    ]);
+
+    //    Route::post('jobposts.approval/rejected', [
+//        'as'=>'jobposts.rejected',
+//        'uses'=> 'JobPostsController@rejected'
+//    ]);
+
+
 });
 
 Route::get('/]', function () {

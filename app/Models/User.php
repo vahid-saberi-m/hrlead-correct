@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'company_id', 'name', 'email', 'password', 'role', 'position'
+        'company_id', 'name', 'email', 'password', 'role', 'position','image'
     ];
 
     /**
@@ -27,17 +27,17 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function cv_folders()
+    public function CvFolders()
     {
         return $this->belongsToMany('App\Models\CvFolder', 'cv_folder_user');
     }
 
-    public function job_posts()
+    public function JobPosts()
     {
         return $this->hasMany('App\Models\JobPost');
     }
 
-    public function company()
+    public function Company()
     {
         return $this->belongsTo('App\Models\Company');
     }

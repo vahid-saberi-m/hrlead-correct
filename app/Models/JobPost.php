@@ -22,15 +22,15 @@ class JobPost extends Model
         'expiration_date'
     ];
 
-    public function user()
+    public function User()
     {
         return $this->belongsTo('App\Models\User');
     }
-    public function company()
+    public function Company()
     {
-        return $this->belongsTo('App\Company', 'company_id');
+        return $this->belongsTo('App\Models\Company', 'company_id');
     }
-    public function cv_folders()
+    public function CvFolders()
     {
         return $this->hasMany('App\Models\CvFolder');
     }
