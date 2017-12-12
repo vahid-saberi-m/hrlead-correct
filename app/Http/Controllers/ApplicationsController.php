@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Application;
+use App\Models\Candidate;
+use App\Models\CvFolder;
 use Illuminate\Http\Request;
+
 
 class ApplicationsController extends Controller
 {
@@ -33,9 +36,18 @@ class ApplicationsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, JobPost $jobpost, Candidate $candidate)
     {
-        //
+        $cvfolder = CvFolder::where('job_post_id'== $jobpost->id)->where('name'=='در صف انتظار')->first();
+        $application = Application::create([
+            'candidate_id'=> $candidate->id ,
+            'job_post_id'=> $jobpost->id,
+            'is_seen'=> '0',
+            'status'=> 'در صف انتظار',
+            'cv_id'=>'1',
+            'cv_folder_id'=> $cvfolder->id,
+        ]);
+        return redirect();
     }
 
     /**

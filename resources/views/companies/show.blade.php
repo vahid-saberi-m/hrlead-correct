@@ -3,162 +3,293 @@
 
 
 
+
     <div class="callout callout-info">
         <a href="//{{$company->website}}">
-            <img class="pull-right margin " src="/images/{{$company->logo}}" alt="{{$company->name}}"
+            <img class="pull-right margin " src="/images/logos/{{$company->logo}}" alt="{{$company->name}}"
                  style="width:82px;height:82px;border:2;">
         </a>
         <h1>{{$company->name}}</h1>
         <h4>{{$company->slogan}}</h4>
-
-        <p></p>
-
     </div>
+    <div>
+        <div class="row">
+            <div class="carousel-inner">
+                <div class="bigimg">
+                    <div class="col-lg-12" style="background-image: url(/images/companyImages/{{$company->main_photo}}"
+                         height="1 400px" )>
+                        <div class="item active"
+                             style="background-image: url(/images/companyImages/{{$company->main_photo}})">
+                            <div class="container">
+                                <div class="row slide-margin">
+                                    <div class="col-sm-6 pull-right">
+                                        <div class="carbon-wrap">
+                                            <div class="carousel-content">
+                                                <h2 class="animation animated-item-1">به <span>{{$company->name}}</span>
+                                                    بپیوندید
+                                                </h2>
+                                                <p class="animation animated-item-2">{{$company->slogan}}</p>
+                                                <a class="btn-slide animation animated-item-3" href="#">Read More</a>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{--<div class="col-sm-6 hidden-xs animation animated-item-4">--}}
+                                    {{--<div class="slider-img">--}}
+                                    {{--<img src="/Company/images/slider/img3.png" class="img-responsive">--}}
+                                    {{--</div>--}}
+                                    {{--</div>--}}
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
 
 
+    {{--<div class="item">--}}
+    {{--<img src="http://placehold.it/900x500/3c8dbc/ffffff&amp;text=I+Love+Bootstrap" alt="Second slide">--}}
+
+    {{--<div class="carousel-caption">--}}
+    {{--Second Slide--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--<div class="item">--}}
+    {{--<img src="http://placehold.it/900x500/f39c12/ffffff&amp;text=I+Love+Bootstrap" alt="Third slide">--}}
+
+    {{--<div class="carousel-caption">--}}
+    {{--Third Slide--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--</div>--}}
     <!-- Default box -->
-    <div class="box">
-        <div class="box-header with-border">
-            <h3 class="box-title">{{$company->message_title}}</h3>
-        </div>
-        <div class="box-body">
-            {{$company->message_content}}
-        </div>
-        <!-- /.box-body -->
-    </div>
+    {{--<section id="main-slider" class="no-margin">--}}
+    {{--<div class="carousel slide">--}}
+    {{--<div class="carousel-inner">--}}
+    {{--<div class="item active" style="background-image: url(/images/companyImages/{{$company->main_photo}})">--}}
+    {{--<div class="container">--}}
+    {{--<div class="row slide-margin">--}}
+    {{--<div class="col-sm-6 pull-right">--}}
+    {{--<div class="carbon-wrap">--}}
+    {{--<div class="carousel-content">--}}
+    {{--<h2 class="animation animated-item-1">به <span>{{$company->name}}</span>--}}
+    {{--بپیوندید--}}
+    {{--</h2>--}}
+    {{--<p class="animation animated-item-2">{{$company->slogan}}</p>--}}
+    {{--<a class="btn-slide animation animated-item-3" href="#">Read More</a>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+
+    {{--<div class="col-sm-6 hidden-xs animation animated-item-4">--}}
+    {{--<div class="slider-img">--}}
+    {{--<img src="/Company/images/slider/img3.png" class="img-responsive">--}}
+    {{--</div>--}}
+    {{--</div>--}}
+
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--</div>--}}
+    {{--<!--/.item-->--}}
+    {{--</div>--}}
+    {{--<!--/.carousel-inner-->--}}
+    {{--</div>--}}
+    {{--<!--/.carousel-->--}}
+    {{--</section>--}}
     <!-- /.box -->
 
 
-
-    <div class="col-md-12">
-        <div class="box box-solid">
-            <div class="box-header with-border">
-                <h3 class="box-title">{{$company->name}} در یک نگاه</h3>
-            </div>
-            <!-- /.box-header -->
-            <div class="box-body">
-                <div class="box-group" id="accordion">
-                    <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
-                    <div class="panel box box-primary">
-                        <div class="box-header with-border">
-                            <h4 class="box-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
-                                    درباره ما
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapseOne" class="panel-collapse collapse in">
-                            <div class="box-body">
-                                {{$company->about_us}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel box box-danger">
-                        <div class="box-header with-border">
-                            <h4 class="box-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                                    چرا اینجا؟
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapseTwo" class="panel-collapse collapse">
-                            <div class="box-body">
-                                {{$company->why_us}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="panel box box-success">
-                        <div class="box-header with-border">
-                            <h4 class="box-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
-                                    مراحل مصاحبه و استخدام
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapseThree" class="panel-collapse collapse">
-                            <div class="box-body">
-                                {{$company->recruitment_steps}}
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="panel box box-success">
-                        <div class="box-header with-border">
-                            <h4 class="box-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#collapsefour">
-                                    تماس با ما
-                                </a>
-                            </h4>
-                        </div>
-                        <div id="collapsefour" class="panel-collapse collapse">
-                            <div class="box-body">
-                                آدرس:{{$company->address}}
-                                <br>
-                                شماره تلفن: {{$company->phone_number}}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- /.box-body -->
-        </div>
-        <!-- /.box -->
-    </div>
-
-    @foreach($JobPosts as $jobPost)
         <div class="col-md-12">
-            <div class="box box-default box-solid collapsed-box ">
-                <div class="box-header with-border ">
-                    <h3 class="box-title  "></h3>
-                    <div class="box-tools pull-right ">
-                        <button type="button" class="btn btn-box-tool " data-widget="collapse">
-                            {{$jobPost->title}} <i class="fa fa-plus "></i>
-                        </button>
-                    </div>
-                    <!-- /.box-tools -->
+            <div class="box box-solid">
+                <div class="box-header with-border">
+                    <h3 class="box-title">{{$company->name}} در یک نگاه</h3>
                 </div>
                 <!-- /.box-header -->
-                <div class="box-body" style="">
-                    <strong>شرح موقعیت شغلی:</strong>
-                    <hr>
-                    {{$jobPost->description}}
-                    <br> <br> <br> <br>
-                    <strong>ویژگی های مورد نیاز</strong>
-                    <hr>
-                    {{$jobPost->requirements}}
-                    <br> <br> <br> <br>
-                    <strong>مزایا:</strong>
-                    <hr>
-                    {{$jobPost->benefits}}
-                    <br> <br> <br> <br>
-                    <button type="button" class="btn btn-social btn-google" data-toggle="modal" data-target="#modal-default">
-                        <i class="fa fa-google-plus  "></i> رزومه خود را بفرستید</button>
-                    <div class="modal fade" id="modal-default" style="display: none;">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">×</span></button>
-                                    <h4 class="modal-title">Default Modal</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <p>One fine body…</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
+                <div class="box-body">
+                    <div class="box-group" id="accordion">
+                        <!-- we are adding the .panel class so bootstrap.js collapse plugin detects it -->
+                        <div class="panel box box-primary">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                        درباره ما
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in">
+                                <div class="box-body">
+                                    {{$company->about_us}}
                                 </div>
                             </div>
-                            <!-- /.modal-content -->
                         </div>
-                        <!-- /.modal-dialog -->
+                        <div class="panel box box-danger">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                        چرا اینجا؟
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse">
+                                <div class="box-body">
+                                    {{$company->why_us}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel box box-success">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                        مراحل مصاحبه و استخدام
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseThree" class="panel-collapse collapse">
+                                <div class="box-body">
+                                    {{$company->recruitment_steps}}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel box box-success">
+                            <div class="box-header with-border">
+                                <h4 class="box-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapsefour">
+                                        تماس با ما
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapsefour" class="panel-collapse collapse">
+                                <div class="box-body">
+                                    آدرس:{{$company->address}}
+                                    <br>
+                                    شماره تلفن: {{$company->phone_number}}
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- /.box-body -->
             </div>
             <!-- /.box -->
         </div>
+
+        @foreach($jobposts as $jobpost)
+            @if($jobpost->approval == 1)
+                <div class="col-md-12">
+                    <div class="box box-default box-solid collapsed-box ">
+                        <div class="box-header with-border ">
+                            <h3 class="box-title  "></h3>
+                            <div class="box-tools pull-right ">
+                                <button type="button" class="btn btn-box-tool " data-widget="collapse">
+                                    {{$jobpost->title}} <i class="fa fa-plus "></i>
+                                </button>
+                            </div>
+                            <!-- /.box-tools -->
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body" style="">
+                            <strong>شرح موقعیت شغلی:</strong>
+                            <hr>
+                            {{$jobpost->description}}
+                            <br> <br> <br> <br>
+                            <strong>ویژگی های مورد نیاز</strong>
+                            <hr>
+                            {{$jobpost->requirements}}
+                            <br> <br> <br> <br>
+                            <strong>مزایا:</strong>
+                            <hr>
+                            {{$jobpost->benefits}}
+                            <br> <br> <br> <br>
+                            <button type="button" class="btn btn-social btn-google" data-toggle="modal"
+                                    data-target="#{{$jobpost->id}}">
+                                <i class="fa fa-google-plus  "></i> رزومه خود را بفرستید
+                            </button>
+                            <div class="modal fade" id="{{$jobpost->id}}" style="display: none;">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">×</span></button>
+                                            <h4 class="modal-title">Default Modal</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                          <form action="{{route('candidate.apply', ['jobpost'=> $jobpost->id]) }}" method="post">
+                                              {{ csrf_field() }}
+                                              {{ method_field('POST') }}
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">ایمیل خود را وارد نمایید</label>
+                                                  <input type="email" class="form-control"  id="exampleInputEmail1" name="email" placeholder="email" required>
+                                              </div>
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">شماره تماس</label>
+                                                  <input type="number" class="form-control" id="exampleInputEmail1" name="phone" placeholder="" required>
+                                              </div>
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">رزومه شما</label>
+                                                  <input type="file" class="form-control" id="exampleInputEmail1" name="cv" placeholder="" required >
+                                              </div>
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">نام و نام خانوادگی</label>
+                                                  <input type="text" class="form-control" name="name" id="exampleInputEmail1" required>
+                                              </div>
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">آخرین شرکتی که در آن فعالیت داشته اید</label>
+                                                  <input type="text" class="form-control" name="company" id="exampleInputEmail1" required>
+                                              </div>
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">عنوان شغلی</label>
+                                                  <input type="text" class="form-control" name="position" id="exampleInputEmail1" required>
+                                              </div>
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">چند سال سابقه کار دارید؟</label>
+                                                  <input type="number" class="form-control" name="experience" id="exampleInputEmail1" required >
+                                              </div>
+                                              <div class="form-group">
+                                                  <label>آخرین مدرک تحصیلی</label>
+                                                  <select class="form-control" name="degree">
+                                                      <option>دیپلم</option>
+                                                      <option>کاردانی</option>
+                                                      <option >کارشناسی</option>
+                                                      <option>کارشناسی ارشد</option>
+                                                      <option>دکتری</option>
+                                                  </select>
+                                              </div>
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">رشته تحصیلی</label>
+                                                  <input type="text" class="form-control" name="education" id="exampleInputEmail1" required >
+                                              </div>
+                                              <div class="form-group">
+                                                  <label for="exampleInputEmail1">دانشگاه محل تحصیل</label>
+                                                  <input type="text" class="form-control" name="university" id="exampleInputEmail1" required >
+                                              </div>
+
+                                            <button type="submit" class="btn btn-primary pull-left">ثبت اطلاعات</button>
+                                          </form>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default pull-left"
+                                                    data-dismiss="modal">خروج
+                                            </button>
+                                        </div>
+
+                                    </div>
+                                    <!-- /.modal-content -->
+                                </div>
+                                <!-- /.modal-dialog -->
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                    </div>
+                    <!-- /.box -->
+                </div>
+        @endif
     @endforeach
+
 
 
 
@@ -189,9 +320,9 @@
     {{--</div>--}}
 
     <!-- Site footer -->
-    <footer class="footer">
-        <p>powered by <a href="hrlead.ir>">HRLead.ir</a> </p>
-    </footer>
+        <footer class="footer">
+            <p>powered by <a href="hrlead.ir>">HRLead.ir</a></p>
+        </footer>
 
     </div>
     </div>

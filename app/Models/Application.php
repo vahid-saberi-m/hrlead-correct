@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
 
 class Application extends Model
 {
     //
+    use SoftDeletes;
     protected $fillable = [
         'candidate_id',
         'job_post_id',
@@ -24,4 +27,5 @@ class Application extends Model
     public function CvUser(){
         return $this->belongsTo('App\Models\CvUser');
     }
+    protected $dates = ['deleted_at'];
 }

@@ -17,10 +17,10 @@ class UsersController extends Controller
         $company = auth()->user()->Company;
         $user = auth()->user();
         $jobposts = auth()->user()->JobPosts;
-            $users = $company->Users;
+        $companyusers = $company->Users;
             return view('users.index', [
                 'user'=> $user,
-                'users'=> $users,
+                'companyusers'=> $companyusers,
                 'company'=>$company,
                 'jobposts'=> $jobposts
             ]);
@@ -96,6 +96,51 @@ class UsersController extends Controller
     public function update(Request $request, User $user)
     {
         //
+    }
+    public function approved(Request $request, User $user)
+    {
+        //save
+        $approved = User::where('id',$user->id)-> update([
+            'is_approved'=> $request->input('approved')
+        ]);
+
+        if($approved)
+        {     $user = auth()->user();
+            $jobposts = auth()->user()->JobPosts;
+            $company = auth()->user()->company;
+            $companyusers = $company->Users;
+            return view('/Users/index',[
+            'companyusers'=> $companyusers,
+                'jobposts' => $jobposts,
+                'company' => $company,
+                'user' => $user,
+            ]);
+        } else{
+            var_dump($user->id);
+        }
+
+
+    }
+
+    public function rejected(Request $request, User $user)
+    { $rejected = User::find($user->id);
+        $rejected->Delete();
+
+        if($rejected)
+        {     $user = auth()->user();
+            $jobposts = auth()->user()->JobPosts;
+            $company = auth()->user()->company;
+            $companyusers = $company->Users;
+            return view('/Users/index',[
+            'companyusers'=> $companyusers,
+                'jobposts' => $jobposts,
+                'company' => $company,
+                'user' => $user,
+            ]);
+        } else{
+            var_dump($user->id);
+        }
+
     }
 
     /**

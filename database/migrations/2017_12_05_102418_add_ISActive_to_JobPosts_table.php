@@ -14,7 +14,7 @@ class AddISActiveToJobPostsTable extends Migration
     public function up()
     {
         Schema::table('job_Posts', function (Blueprint $table) {
-            $table->smallInteger('is_active');
+            $table->smallInteger('is_active')->nullable() ;
         });
     }
 

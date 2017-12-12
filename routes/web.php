@@ -15,14 +15,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-//Route::resource('Companies', 'Companies/CompaniesController@show', ['only' => [
-//    'index', 'show'
-//]]);
 Route::get('/UserHome', function () {
     return view('pages.userhome');
 
 });
+
+Route::get('/public/{company}', 'CompaniesController@PublicShow');
+$s = 'social.';
+Route::get('/social/redirect/{provider}',   ['as' => $s . 'redirect',   'uses' => 'Auth\AuthController@getSocialRedirect']);
+Route::get('/social/handle/{provider}',     ['as' => $s . 'handle',     'uses' => 'Auth\AuthController@getSocialHandle']);
+Route::get('/applications/{jobpost}/', 'ApplicationsController@store')->name('application.store');
+Route::post('/candidate/{jobpost}/', 'CandidatesController@store')->name('candidate.apply');
+
+
+
 
 //Route::get('companies/{id?}', function ($id){
 //    route('CompaniesController'). $id ;
@@ -46,15 +52,21 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/jobposts.waiting/{id?}', 'JobPostsController@indexWaiting');
     Route::get('/users/index/', 'UsersController@index');
     Route::get('/jobposts.approved/{id?}', 'JobPostsController@indexapproved');
-    Route::post('jobposts.approval/approved', [
-        'as'=>'jobposts.approved',
-        'uses'=> 'JobPostsController@approved'
-    ]);
 
-    //    Route::post('jobposts.approval/rejected', [
-//        'as'=>'jobposts.rejected',
-//        'uses'=> 'JobPostsController@rejected'
+//    Route::post('jobposts.approval/approved', [
+//        'as'=>'jobposts.approved',
+//        'uses'=> 'JobPostsController@approved'
 //    ]);
+//    Route::patch('jobposts.approval/approved', [
+//        'as'=>'jobposts.approved',
+//        'uses'=> 'JobPostsController@approved'
+//    ]);
+
+    Route::patch('jobposts/{jobpost}/approved', 'JobPostsController@approved')->name('jobposts.approved');
+    Route::patch('jobposts/{jobpost}/rejected', 'JobPostsController@rejected')->name('jobposts.rejected');
+    Route::patch('users/{user}/rejected', 'UsersController@rejected')->name('users.rejected');
+    Route::patch('users/{user}/approved', 'UsersController@approved')->name('users.approved');
+
 
 
 });

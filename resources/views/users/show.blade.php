@@ -241,7 +241,7 @@
                         </a>
                         <ul class="treeview-menu">
                             @foreach($jobposts as $jobpost)
-                                <li><a href="/jobposts/{{$jobpost->id}}/edit">{{$jobpost->title}}</a></li>
+                                <li><a href="/jobposts/{{$jobpost->id}}">{{$jobpost->title}}</a></li>
                             @endforeach
                         </ul>
                     </li>

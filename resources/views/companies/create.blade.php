@@ -2,7 +2,7 @@
 @section('content')
     <div class="col-lg-9 col-md-9 col-sm-9 pull-left" xmlns="http://www.w3.org/1999/html"
          xmlns="http://www.w3.org/1999/html">
-        <form method="post" action="{{route('Companies.store')}}">
+        <form method="post" action="{{route('companies.store')}}" enctype="multipart/form-data">
             {{csrf_field()}}
             {{--<div class="form-group">--}}
                 <lable for="company-name">نام شرکت</lable><span class="required">*</span></label>

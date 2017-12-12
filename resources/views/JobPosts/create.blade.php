@@ -1,6 +1,6 @@
-@extends('layouts/app')
-@section('content')
-    <div class="col-lg-9 col-md-9 col-sm-9 pull-left" xmlns="http://www.w3.org/1999/html"
+@extends('users.show')
+@section('section')
+    <div class="col-lg-9 col-md-9 col-sm-9 pull-right" xmlns="http://www.w3.org/1999/html"
          xmlns="http://www.w3.org/1999/html">
         <form method="post" action="{{route('jobposts.store')}}">
             {{csrf_field()}}

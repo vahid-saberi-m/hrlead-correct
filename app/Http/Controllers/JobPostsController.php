@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\JobPost;
-use App\Models\User;
+use App\Models\CvFolder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -68,8 +68,17 @@ class JobPostsController extends Controller
      */
     public function create($id = null)
     {
-        //
-        return view('JobPosts.create', ['company_id' => $id]);
+        $company = auth()->user()->company;
+        $id = auth()->user()->company->id;
+        $jobposts = $company->JobPosts;
+        $user = auth()->user();
+        return view('JobPosts.create', [
+            'company_id' => $id,
+            'jobposts' => $jobposts,
+            'user' => $user,
+            'company' => $company,
+
+        ]);
     }
 
     /**
@@ -94,10 +103,45 @@ class JobPostsController extends Controller
                 'approval' => '0',
                 'user_id' => auth()->user()->id,
                 'company_id' => auth()->user()->company_id,
+                'is_active'=> '0' ,
             ]);
+            $company = auth()->user()->company;
+            $id = auth()->user()->company->id;
+            $jobposts = $company->JobPosts;
+            $user = auth()->user();
             if ($jobpost) {
-                return redirect()->route('jobposts.show', ['jobpost' => $jobpost->id])
-                    ->with('success', ' صفحه شرکت با موفقیت ساخته شد.');
+                $cv_folder1 = CvFolder::create([
+                    'name' => 'رد شده',
+                    'user_id' => auth()->user()->id,
+                    'job_post_id' => $jobpost->id,
+                    'company_id' => $id,
+
+                ]);
+                $cv_folder2 = CvFolder::create([
+                    'name' => 'در صف انتظار',
+                    'user_id' => auth()->user()->id,
+                    'job_post_id' => $jobpost->id,
+                    'company_id' => $id,
+
+                ]);
+                $cv_folder3 = CvFolder::create([
+                    'name' => 'قابل تامل',
+                    'user_id' => auth()->user()->id,
+                    'job_post_id' => $jobpost->id,
+                    'company_id' => $id,
+
+                ]);
+                $cv_folder4 = CvFolder::create([
+                    'name' => 'دعوت به مصاحبه',
+                    'user_id' => auth()->user()->id,
+                    'job_post_id' => $jobpost->id,
+                    'company_id' => $id,
+
+                ]);
+                if ($cv_folder1 && $cv_folder2 && $cv_folder3 && $cv_folder4) {
+                    return redirect()->route('jobposts.show', ['jobpost' => $jobpost->id])
+                        ->with('success', ' صفحه شرکت با موفقیت ساخته شد.');
+                }
             }
         }
         return back()->withInput()->with('error', 'خطایی در ثبت شرکت شما به وجود آمد');
@@ -195,28 +239,46 @@ class JobPostsController extends Controller
 
     }
 
-    public function approved($id)
+    public function approved(Request $request, JobPost $jobpost)
     {
         //save
-        $approved = JobPost::where('id', '=', e($id))->first();
+        $approved = JobPost::where('id',$jobpost->id)-> update([
+            'approval'=> $request->input('approved')
+            ]);
+
         if($approved)
-        {
-            $approved->approved = 1;
-            $approved->save();
-            //return a view or whatever you want tto do after
+        {     $user = auth()->user();
+            $jobposts = auth()->user()->JobPosts;
+            $company = auth()->user()->company;
+           return view('/JobPosts/admin/WaitingJobPosts',[
+               'jobposts' => $jobposts,
+               'company' => $company,
+               'user' => $user,
+           ]);
+        } else{
+            var_dump($jobpost->id);
         }
 
 
     }
 
     public function rejected(Request $request, JobPost $jobpost)
-    {
-        //save
-        $jobpostUpdate = JobPost::where('id', $jobpost->id)->update([
-            'approval' => $request->input('approval'),
+    { $rejected = JobPost::find($jobpost->id);
+        $rejected->Delete();
 
+        if($rejected)
+        {     $user = auth()->user();
+            $jobposts = auth()->user()->JobPosts;
+            $company = auth()->user()->company;
+            return view('/JobPosts/admin/WaitingJobPosts',[
+                'jobposts' => $jobposts,
+                'company' => $company,
+                'user' => $user,
+            ]);
+        } else{
+            var_dump($jobpost->id);
+        }
 
-        ]);
     }
 
     /**

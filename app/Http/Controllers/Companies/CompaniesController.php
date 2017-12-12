@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Company;
+use App\Models\JobPost;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -42,7 +43,14 @@ class CompaniesController extends Controller
     public function store(Request $request)
     {
         //
+
         if (Auth::check()) {
+            $file= $request ->file('logo');
+            $name=$file->getClientOriginalName();
+            $file-> move('/images/logos', $name);
+            $input['logo'] = $name;
+
+
             $company = Company::create([
                 'name' => $request->input('name'),
                 'company_size' => $request->input('company_size'),
@@ -86,6 +94,18 @@ class CompaniesController extends Controller
 
         ]);
     }
+    public function PublicShow(Company $company)
+    {
+        //
+        $company = Company::find($company->id);
+        $id=$company->id;
+        $jobposts = $company->JobPosts;
+        return view('companies.show', [
+            'company' => $company,
+            'jobposts' => $jobposts,
+
+        ]);
+    }
 
 
     /**
@@ -98,9 +118,15 @@ class CompaniesController extends Controller
     {
         //
         if (Auth::check()) {
+            $user = auth()->user();
+            $jobposts = auth()->user()->JobPosts;
+            $company = auth()->user()->company;
 
-            $company = Company::find($company->id);
-            return view('Companies.edit', ['company' => $company]);
+            return view('Companies.edit', [
+                'company' => $company,
+                'user'=>$user,
+                'jobposts'=>$jobposts
+            ]);
         }
         return view('auth.login');
     }

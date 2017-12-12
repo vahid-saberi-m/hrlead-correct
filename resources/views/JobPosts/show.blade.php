@@ -66,11 +66,33 @@
         {{--<p class="lead">{{$cv_folder->user_id}}</p>--}}
         {{--@endforeach--}}
 
-        @foreach($cvfolders as $cvFolder)
-            <h1>{{$cvFolder->name}}</h1>
-            <p>id: {{$cvFolder->id}}</p>
-            <p class="lead">{{$cvFolder->user_id}}</p>
-        @endforeach
+
+        <div class="row">
+            @foreach($cvfolders as $cvfolder)
+                <div class="col-md-3 pull-left">
+                    <div class="box box-info box-solid ">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">{{$cvfolder->name}}</h3>
+
+                            <div class="box-tools pull-right">
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                            class="fa fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="box-body">
+                            <div class="row>">
+                                <div class="col-md-12">
+                                    a
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+            @endforeach
+        </div>
 
 
     </div>
