@@ -27,8 +27,8 @@
     <script src="https://use.fontawesome.com/874dbadbd7.js"></script>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+    {{--<script src="{{ asset('js/jquery.min.js') }}"></script>--}}
 
 
 
@@ -134,7 +134,7 @@
 
 
 
-@yield('jqueryScript')
+{{--@yield('jqueryScript')--}}
 
 <script src="{{ asset('js/propeller.min.js') }}"></script>
 <script src="{{ asset('js/moment.js') }}"></script>

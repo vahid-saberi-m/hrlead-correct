@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Application;
+use App\Models\JobPost;
 use App\Models\Candidate;
 use App\Models\CvFolder;
 use Illuminate\Http\Request;
@@ -56,9 +57,21 @@ class ApplicationsController extends Controller
      * @param  \App\Application  $application
      * @return \Illuminate\Http\Response
      */
-    public function show(Application $application)
+    public function show(application $application)
     {
-        //
+//        dd($application->candidate_id);
+        $candidate= $application->Candidate;
+        $cvfolder= $application->CvFolder;
+        $cvfolders= $application->JobPost->CvFolders;
+        $applications= $cvfolder->Applications;
+        return view('public.applications',[
+            'application'=>$application,
+            'candidate'=>$candidate,
+            'cvfolder'=>$cvfolder,
+            'cvfolders'=>$cvfolders,
+            'applications'=>$applications,
+
+        ]);
     }
 
     /**
@@ -84,12 +97,27 @@ class ApplicationsController extends Controller
         //
     }
 
+
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Application  $application
      * @return \Illuminate\Http\Response
      */
+
+    public function changeCvFolder(application $application, cvfolder $cvfolder)
+    {
+        if ($application->JobPost->id==$cvfolder->JobPost->id) {
+            $newcvfolder = Application::where('id', $application->id)->update([
+                'cv_folder_id' => $cvfolder->id,
+            ]);
+            if ($newcvfolder) {
+                return 'success';
+            }
+        } else { return 'failure';}
+    }
+
+
     public function destroy(Application $application)
     {
         //

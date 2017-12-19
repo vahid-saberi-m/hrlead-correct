@@ -26,7 +26,7 @@ class CvFolder extends Model
     public function Company(){
         return $this->belongsTo('App\Models\Company');
     }
-    public function Application(){
-        return $this->hasMany('App\Models\Application','cv_folder_id');
+    public function Applications(){
+        return $this->hasMany('App\Models\Application');
     }
 }

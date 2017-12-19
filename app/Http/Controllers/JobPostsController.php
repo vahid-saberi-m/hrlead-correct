@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Application;
 use App\Models\JobPost;
 use App\Models\CvFolder;
 use Illuminate\Http\Request;
@@ -162,15 +163,19 @@ class JobPostsController extends Controller
             $jobposts = auth()->user()->JobPosts;
             $jobpost = JobPost::find($jobpost->id);
             $cvfolders = $jobpost->CvFolders;
+            $applications= $jobpost->Applications;
             $company = $jobpost->company;
+if ($applications){
 
             return view('JobPosts.show', [
                 'jobpost' => $jobpost,
                 'cvfolders' => $cvfolders,
                 'jobposts' => $jobposts,
                 'company' => $company,
-                'user' => $user
+                'user' => $user,
+                'applications'=> $applications,
             ]);
+}
         }
     }
 
@@ -188,11 +193,13 @@ class JobPostsController extends Controller
             $jobposts = auth()->user()->JobPosts;
             $jobpost = JobPost::find($jobpost->id);
             $company = $jobpost->company;
+            $applications= Application::where('job_post_id','=',$jobpost->id );
             return view('JobPosts.edit', [
                 'jobpost' => $jobpost,
                 'jobposts' => $jobposts,
                 'company' => $company,
-                'user' => $user
+                'user' => $user,
+                'applications'=> $applications,
             ]);
         }
         return view('auth.login');
@@ -225,12 +232,15 @@ class JobPostsController extends Controller
             $jobpost = JobPost::find($jobpost->id);
             $company = $jobpost->company;
             $cvfolders = $jobpost->CvFolders;
+            $applications= Application::where('job_post_id','=',$jobpost->id );
             return view('JobPosts.show', [
                 'jobpost' => $jobpost,
                 'jobposts' => $jobposts,
                 'company' => $company,
                 'user' => $user,
-                'cvfolders' => $cvfolders
+                'cvfolders' => $cvfolders,
+                'applications'=> $applications,
+
             ])
                 ->with('success', 'اطلاعات صفحه اصلی سایت استخدامی شما با موفقیت به روز رسانی شد. ');
         }
@@ -287,6 +297,53 @@ class JobPostsController extends Controller
      * @param  \App\Models\JobPost $jobpost
      * @return \Illuminate\Http\Response
      */
+    public function expired(JobPost $jobpost)
+    {
+        //save
+        $expired = JobPost::where('id',$jobpost->id)-> update([
+            'is_active'=>'o'
+        ]);
+
+        if($expired)
+        {     $user = auth()->user();
+            $jobposts = auth()->user()->JobPosts;
+            $company = auth()->user()->company;
+            return view('/JobPosts/admin/WaitingJobPosts',[
+                'jobposts' => $jobposts,
+                'company' => $company,
+                'user' => $user,
+            ]);
+        } else{
+            var_dump($jobpost->id);
+        }
+
+
+    }
+
+    public function reactive(Request $request, JobPost $jobpost)
+    {
+        //save
+        $expired = JobPost::where('id',$jobpost->id)-> update([
+            'expiration_date'=>$request->input('expiration_date'),
+            'is_active'=>'1'
+        ]);
+
+        if($expired)
+        {     $user = auth()->user();
+            $jobposts = auth()->user()->JobPosts;
+            $company = auth()->user()->company;
+            return view('/JobPosts/admin/ApprovedJobPosts',[
+                'jobposts' => $jobposts,
+                'company' => $company,
+                'user' => $user,
+            ]);
+        } else{
+            var_dump($jobpost->id);
+        }
+
+
+    }
+
     public function destroy(JobPost $jobpost)
     {
         //

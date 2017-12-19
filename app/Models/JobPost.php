@@ -38,5 +38,9 @@ class JobPost extends Model
     {
         return $this->hasMany('App\Models\CvFolder');
     }
+    public function Applications()
+    {
+        return $this->hasMany('App\Models\Application');
+    }
 
 }

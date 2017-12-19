@@ -15,60 +15,46 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/UserHome', function () {
+Route::get('/userhome', ['middleware' => 'isAdmin', function () {
     return view('pages.userhome');
 
-});
+}]);
+
 
 Route::get('/public/{company}', 'CompaniesController@PublicShow');
 $s = 'social.';
-Route::get('/social/redirect/{provider}',   ['as' => $s . 'redirect',   'uses' => 'Auth\AuthController@getSocialRedirect']);
-Route::get('/social/handle/{provider}',     ['as' => $s . 'handle',     'uses' => 'Auth\AuthController@getSocialHandle']);
+Route::get('/social/redirect/{provider}', ['as' => $s . 'redirect', 'uses' => 'Auth\AuthController@getSocialRedirect']);
+Route::get('/social/handle/{provider}', ['as' => $s . 'handle', 'uses' => 'Auth\AuthController@getSocialHandle']);
 Route::get('/applications/{jobpost}/', 'ApplicationsController@store')->name('application.store');
+Route::get('/application/{application}/', 'ApplicationsController@show')->name('application.show');
 Route::post('/candidate/{jobpost}/', 'CandidatesController@store')->name('candidate.apply');
-
-
-
-
-//Route::get('companies/{id?}', function ($id){
-//    route('CompaniesController'). $id ;
-//});
+Route::get('/email/{candidate}/{jobpost}', 'EmailsController@sendEmail');
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('applications', 'ApplicationsController');
     Route::resource('candidates', 'CandidatesController');
-    Route::resource('companies', 'CompaniesController');
     Route::resource('CvFolders', 'CvFoldersController');
     Route::resource('CvFolderUsers', 'CvFolderUsersController');
     Route::resource('CvUsers', 'CvUsersController');
     Route::resource('Histories', 'HistoriesController');
     Route::get('jobposts/create/{id?}', 'JobPostsController@create');
-    Route::resource('/jobposts', 'JobPostsController');
+    Route::resource('/jobposts', 'JobPostsController')->middleware('IsCompanyJobPost');
     Route::resource('JobPostUsers', 'JobPostUsersController');
     Route::resource('user', 'UsersController');
+    Route::get('application/{application}/{cvfolder}', 'ApplicationsController@changeCvFolder')->name('application.changeCvFolder');
+});
 
-
-
-    Route::get('/jobposts.waiting/{id?}', 'JobPostsController@indexWaiting');
+Route::group(['middleware'=>['auth','isAdmin']],function () {
+    Route::resource('companies', 'CompaniesController');
+    Route::patch('users/{user}/rejected', 'UsersController@rejected')->name('users.rejected')->middleware('isCompanyUser');
+    Route::patch('users/{user}/approved', 'UsersController@approved')->name('users.approved')->middleware('isCompanyUser');
     Route::get('/users/index/', 'UsersController@index');
-    Route::get('/jobposts.approved/{id?}', 'JobPostsController@indexapproved');
-
-//    Route::post('jobposts.approval/approved', [
-//        'as'=>'jobposts.approved',
-//        'uses'=> 'JobPostsController@approved'
-//    ]);
-//    Route::patch('jobposts.approval/approved', [
-//        'as'=>'jobposts.approved',
-//        'uses'=> 'JobPostsController@approved'
-//    ]);
-
-    Route::patch('jobposts/{jobpost}/approved', 'JobPostsController@approved')->name('jobposts.approved');
-    Route::patch('jobposts/{jobpost}/rejected', 'JobPostsController@rejected')->name('jobposts.rejected');
-    Route::patch('users/{user}/rejected', 'UsersController@rejected')->name('users.rejected');
-    Route::patch('users/{user}/approved', 'UsersController@approved')->name('users.approved');
-
-
-
+    Route::get('/jobposts.waiting/{id?}', 'JobPostsController@indexWaiting')->middleware('IsCompanyJobPost');
+    Route::get('/jobposts.approved/{id?}', 'JobPostsController@indexapproved')->middleware('IsCompanyJobPost');
+    Route::patch('jobposts/{jobpost}/approved', 'JobPostsController@approved')->name('jobposts.approved')->middleware('IsCompanyJobPost');
+    Route::patch('jobposts/{jobpost}/rejected', 'JobPostsController@rejected')->name('jobposts.rejected')->middleware('IsCompanyJobPost');
+    Route::patch('jobposts/{jobpost}/expire', 'JobPostsController@expire')->name('jobposts.expire')->middleware('IsCompanyJobPost');
+    Route::patch('jobposts/{jobpost}/reactive', 'JobPostsController@reactive')->name('jobposts.reactive')->middleware('IsCompanyJobPost');
 });
 
 Route::get('/]', function () {

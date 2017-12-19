@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\isCompanyUser;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -57,5 +58,9 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'isAdmin'=> \App\Http\Middleware\IsAdmin::class,
+        'IsCompanyJobPost'=> \App\Http\Middleware\IsCompanyJobPost::class,
+        'jobPost'=>\App\Http\Middleware\jobPost::class,
+        'isCompanyUser'=>\App\Http\Middleware\isCompanyUser::class,
     ];
 }

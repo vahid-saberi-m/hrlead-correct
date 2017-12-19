@@ -87,10 +87,10 @@ class CompaniesController extends Controller
     {
         //
         $company = Company::find($company->id);
-        $JobPosts = $company->JobPosts;
+        $jobPosts = $company->JobPosts;
         return view('Companies.show', [
             'company' => $company,
-            'JobPosts' => $JobPosts,
+            'JobPosts' => $jobPosts,
 
         ]);
     }

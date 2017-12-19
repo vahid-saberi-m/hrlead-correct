@@ -13,34 +13,28 @@
         <h4>{{$company->slogan}}</h4>
     </div>
     <div>
+
         <div class="row">
+
             <div class="carousel-inner">
-                <div class="bigimg">
-                    <div class="col-lg-12" style="background-image: url(/images/companyImages/{{$company->main_photo}}"
-                         height="1 400px" )>
-                        <div class="item active"
-                             style="background-image: url(/images/companyImages/{{$company->main_photo}})">
-                            <div class="container">
-                                <div class="row slide-margin">
-                                    <div class="col-sm-6 pull-right">
-                                        <div class="carbon-wrap">
+                <div class="big-img " >
+                        <div class="item active jumbotron text-center "
+                             style="background-image: url(/images/companyImages/{{$company->main_photo}} ); background-size:100% ; height: 546px;">
+                            <div class="container" style="">
+                                <div class="row">
+                                    <div class="col-md-2 col-md-offset-4 ">
+                                        <div class="box" style="opacity: 0.9; width: 300px; height: 150px; ">
                                             <div class="carousel-content">
                                                 <h2 class="animation animated-item-1">به <span>{{$company->name}}</span>
                                                     بپیوندید
                                                 </h2>
                                                 <p class="animation animated-item-2">{{$company->slogan}}</p>
-                                                <a class="btn-slide animation animated-item-3" href="#">Read More</a>
                                             </div>
                                         </div>
+
                                     </div>
-
-                                    {{--<div class="col-sm-6 hidden-xs animation animated-item-4">--}}
-                                    {{--<div class="slider-img">--}}
-                                    {{--<img src="/Company/images/slider/img3.png" class="img-responsive">--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
-
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -49,61 +43,7 @@
             </div>
 
         </div>
-
-
-    {{--<div class="item">--}}
-    {{--<img src="http://placehold.it/900x500/3c8dbc/ffffff&amp;text=I+Love+Bootstrap" alt="Second slide">--}}
-
-    {{--<div class="carousel-caption">--}}
-    {{--Second Slide--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--<div class="item">--}}
-    {{--<img src="http://placehold.it/900x500/f39c12/ffffff&amp;text=I+Love+Bootstrap" alt="Third slide">--}}
-
-    {{--<div class="carousel-caption">--}}
-    {{--Third Slide--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    <!-- Default box -->
-    {{--<section id="main-slider" class="no-margin">--}}
-    {{--<div class="carousel slide">--}}
-    {{--<div class="carousel-inner">--}}
-    {{--<div class="item active" style="background-image: url(/images/companyImages/{{$company->main_photo}})">--}}
-    {{--<div class="container">--}}
-    {{--<div class="row slide-margin">--}}
-    {{--<div class="col-sm-6 pull-right">--}}
-    {{--<div class="carbon-wrap">--}}
-    {{--<div class="carousel-content">--}}
-    {{--<h2 class="animation animated-item-1">به <span>{{$company->name}}</span>--}}
-    {{--بپیوندید--}}
-    {{--</h2>--}}
-    {{--<p class="animation animated-item-2">{{$company->slogan}}</p>--}}
-    {{--<a class="btn-slide animation animated-item-3" href="#">Read More</a>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-
-    {{--<div class="col-sm-6 hidden-xs animation animated-item-4">--}}
-    {{--<div class="slider-img">--}}
-    {{--<img src="/Company/images/slider/img3.png" class="img-responsive">--}}
-    {{--</div>--}}
-    {{--</div>--}}
-
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--</div>--}}
-    {{--<!--/.item-->--}}
-    {{--</div>--}}
-    {{--<!--/.carousel-inner-->--}}
-    {{--</div>--}}
-    {{--<!--/.carousel-->--}}
-    {{--</section>--}}
-    <!-- /.box -->
-
-
-        <div class="col-md-12">
+        <div class="col-md-12 text-right">
             <div class="box box-solid">
                 <div class="box-header with-border">
                     <h3 class="box-title">{{$company->name}} در یک نگاه</h3>
@@ -192,7 +132,7 @@
                             <!-- /.box-tools -->
                         </div>
                         <!-- /.box-header -->
-                        <div class="box-body" style="">
+                        <div class="box-body text-right" style="">
                             <strong>شرح موقعیت شغلی:</strong>
                             <hr>
                             {{$jobpost->description}}
@@ -215,10 +155,10 @@
                                         <div class="modal-header">
                                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">×</span></button>
-                                            <h4 class="modal-title">Default Modal</h4>
+                                            <h4 class="modal-title">{{$jobpost->title}}</h4>
                                         </div>
                                         <div class="modal-body">
-                                          <form action="{{route('candidate.apply', ['jobpost'=> $jobpost->id]) }}" method="post">
+                                          <form action="{{route('candidate.apply', ['jobpost'=> $jobpost]) }}" method="post" enctype="multipart/form-data">
                                               {{ csrf_field() }}
                                               {{ method_field('POST') }}
                                               <div class="form-group">
@@ -231,7 +171,7 @@
                                               </div>
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">رزومه شما</label>
-                                                  <input type="file" class="form-control" id="exampleInputEmail1" name="cv" placeholder="" required >
+                                                  <input type="file" class="form-control" id="cv" name="cv" placeholder="" required >
                                               </div>
                                               <div class="form-group">
                                                   <label for="exampleInputEmail1">نام و نام خانوادگی</label>

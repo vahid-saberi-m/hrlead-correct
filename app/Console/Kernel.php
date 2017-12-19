@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Models\JobPost;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -24,8 +25,11 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->call(function () {
+//            $mytime = Carbon\Carbon::now();
+//            JobPost::where('expiration_date','<', $mytime )->update('is_active'0;
+        })
+            ->daily();
     }
 
     /**
@@ -39,4 +43,5 @@ class Kernel extends ConsoleKernel
 
         require base_path('routes/console.php');
     }
+
 }

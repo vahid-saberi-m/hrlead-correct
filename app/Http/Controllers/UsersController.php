@@ -83,7 +83,14 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        $user = auth()->user();
+        $jobposts = auth()->user()->JobPosts;
+        $company=auth()->user()->Company;
+        return view('users.edit', [
+            'jobposts' => $jobposts,
+            'company' => $company,
+            'user' => $user,
+        ]);
     }
 
     /**
