@@ -35,31 +35,33 @@
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
 
+
+    <![endif]-->
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="skin-blue layout-top-nav" style="height: auto; min-height: 100%;">
-<div class="wrapper" style="height: auto; min-height: 100%;">
+<body class="skin-blue layout-top-nav fixed" style="height: auto; min-height: 100%;">
+{{--<div class="wrapper" style="height: auto; min-height: 100%;">--}}
 
 
     <!-- Full Width Column -->
-    <div class="content-wrapper" style="min-height: 846px;">
-        <div class="container">
+    {{--<div class="content-wrapper" style="min-height: 846px;">--}}
+        {{--<div class="container">--}}
             <!-- Content Header (Page header) -->
 
 
             <!-- Main content -->
-            <section class="content">
+            {{--<section class="content">--}}
             @yield('content')
             <!-- /.box -->
-            </section>
+            {{--</section>--}}
             <!-- /.content -->
-        </div>
+        {{--</div>--}}
         <!-- /.container -->
-    </div>
+    {{--</div>--}}
     {{--@if(auth()->user())--}}
         {{--@endif--}}
     <!-- /.content-wrapper -->
@@ -71,7 +73,7 @@
         </div>
         <!-- /.container -->
     </footer>
-</div>
+{{--</div>--}}
 <!-- ./wrapper -->
 
 
@@ -82,6 +84,7 @@
 <script src="/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
 <script src="/bower_components/jquery-ui/jquery-ui.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
     $.widget.bridge('uibutton', $.ui.button);

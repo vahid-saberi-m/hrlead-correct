@@ -16,7 +16,7 @@
         "jquery": "^3.2",
         "laravel-mix": "^1.0",
         "lodash": "^4.17.4",
-        "vue": "^2.1.10"
+        "vue": "^2.5.13"
     },
     "dependencies": {
         "bootstrap": "^3.3.7",
@@ -25,6 +25,7 @@
         "propellerkit-datatables": "^1.1.0",
         "propellerkit-datetimepicker": "^1.1.0",
         "propellerkit-range-slider": "^1.1.0",
-        "propellerkit-select2": "^1.1.0"
+        "propellerkit-select2": "^1.1.0",
+        "vue-template-compiler": "^2.5.13"
     }
 }

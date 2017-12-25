@@ -19,16 +19,24 @@ Route::get('/userhome', ['middleware' => 'isAdmin', function () {
     return view('pages.userhome');
 
 }]);
+Route::get('/abbas',  function () {
+    return view('formtest');
 
+});
+
+
+Route::get('/public/jobpost/{jobpost}', 'CandidatesController@PublicShow');
 
 Route::get('/public/{company}', 'CompaniesController@PublicShow');
 $s = 'social.';
 Route::get('/social/redirect/{provider}', ['as' => $s . 'redirect', 'uses' => 'Auth\AuthController@getSocialRedirect']);
 Route::get('/social/handle/{provider}', ['as' => $s . 'handle', 'uses' => 'Auth\AuthController@getSocialHandle']);
 Route::get('/applications/{jobpost}/', 'ApplicationsController@store')->name('application.store');
-Route::get('/application/{application}/', 'ApplicationsController@show')->name('application.show');
-Route::post('/candidate/{jobpost}/', 'CandidatesController@store')->name('candidate.apply');
+Route::post('/candidate/exists/{jobpost}/{candidate}', 'CandidatesController@existApply')->name('candidate.existApply');
+Route::post('/candidate/new/{jobpost}', 'CandidatesController@newApply')->name('candidate.newApply');
+Route::post('/candidate/checkemail/{jobpost}', 'CandidatesController@checkEmail')->name('candidate.checkemail');
 Route::get('/email/{candidate}/{jobpost}', 'EmailsController@sendEmail');
+Route::get('/apps/show/{application}/', 'ApplicationsController@showApplication');
 
 Route::middleware(['auth'])->group(function () {
     Route::resource('applications', 'ApplicationsController');

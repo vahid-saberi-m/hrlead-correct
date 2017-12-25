@@ -26,7 +26,7 @@ class Application extends Model
         return $this->belongsTo('App\Models\Candidate', 'candidate_id');
     }
     public function JobPost(){
-        return $this->belongsTo('App\Models\JobPost');
+        return $this->belongsTo('App\Models\JobPost','job_post_id');
     }
     public function CvUser(){
         return $this->belongsTo('App\Models\CvUser');

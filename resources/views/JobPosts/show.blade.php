@@ -62,7 +62,6 @@
                                             <div>
                                                 @if($application->cv_folder_id == $cvfolder->id)
                                                     <div href="#chairs_modal" data-toggle="modal" data-target="#modal"
-                                                       onclick="openModal('{{$application->id}}')"
                                                        id="{{$application->id}}" class="application">
                                                         <div class="box">
                                                             <div class="box-body" onclick="">
@@ -113,6 +112,29 @@
 
         </div>
 
+        <script>
+            $(function() {
+                // Change this selector to find whatever your 'boxes' are
+                var boxes = $("div");
+
+                // Set up click handlers for each box
+                boxes.drop(function() {
+                    var el = $(this), // The box that was clicked
+                        max = 0;
+                    // Find the highest z-index
+                    boxes.each(function() {
+                        // Find the current z-index value
+                        var z = parseInt( $( this ).css( "z-index" ), 10 );
+                        // Keep either the current max, or the current z-index, whichever is higher
+                        max = Math.max( max, z );
+                    });
+
+                    // Set the box that was clicked to the highest z-index plus one
+                    el.css("z-index", max + 1 );
+                });
+            });
+
+        </script>
 
         <script>
             $(document).ready(function () {
@@ -154,25 +176,24 @@
 
         <script>
             $(document).ready(
-            function openModal(id) {
-
-                var url = '/application/' + id;
-                // $('#test a').click(function (e) {
-                //     e.preventDefault();
-                $.ajax(url, {
-                    success: function (data) {
+                $('.application').click(
+            function () {
+                var ids= $(this).attr('id');
+                var url = '/apps/show/' + ids;
+                $.ajax({url:url,
+                    success: function (dat) {
                         // console.log(data);
-                        $('#application').load(url)
+                        $('#application').load(dat)
                     },
-                    error: function (data) {
-                        console.log(data);
+                    error: function (dat) {
+                        console.log(dat);
                         $('#application').append('<br>' + data.statusText);
 
                     }
                 });
 
             }
-            )
+            ))
 
 
         </script>

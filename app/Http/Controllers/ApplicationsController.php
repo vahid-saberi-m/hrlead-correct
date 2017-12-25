@@ -57,12 +57,12 @@ class ApplicationsController extends Controller
      * @param  \App\Application  $application
      * @return \Illuminate\Http\Response
      */
-    public function show(application $application)
+    public function showApplication(Application $application)
     {
 //        dd($application->candidate_id);
         $candidate= $application->Candidate;
         $cvfolder= $application->CvFolder;
-        $cvfolders= $application->JobPost->CvFolders;
+        $cvfolders= $cvfolder->JobPost->CvFolders;
         $applications= $cvfolder->Applications;
         return view('public.applications',[
             'application'=>$application,

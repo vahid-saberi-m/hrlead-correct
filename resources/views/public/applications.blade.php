@@ -1,5 +1,4 @@
-@extends('layouts.app')
-@section('content')
+
 
     <div class="col-md-4 pull-right">
         <div id="currentCandidate">
@@ -91,4 +90,3 @@
 
         }
     </script>
-@endsection

@@ -1,8 +1,8 @@
 @extends('layouts/app')
 @section('content')
 
-    <body class="skin-blue sidebar-mini" style="height: auto; min-height: 100%;">
-    <div class="wrapper" style="height: auto; min-height: 100%;">
+    {{--<body class="skin-blue sidebar-mini fixed" style="height: auto; min-height: 100%;">--}}
+    {{--<div class="wrapper" style="height: auto; min-height: 100%;">--}}
 
         <!-- Main Header -->
         <header class="main-header">
@@ -240,7 +240,7 @@
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper" style="min-height: 846px;" >
+        <div class="content-wrapper"  >
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
@@ -254,16 +254,16 @@
             </section>
 
             <!-- Main content -->
-            <section class="content container-fluid">
+            {{--<section class="content container-fluid">--}}
 
             @yield('section')
             <!--------------------------
                   | Your Page Content Here |
                   -------------------------->
 
-            </section>
+            {{--</section>--}}
             <!-- /.content -->
         </div>
-    </div>
-    </body>
+    {{--</div>--}}
+    {{--</body>--}}
 @endsection
