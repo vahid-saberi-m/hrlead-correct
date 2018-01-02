@@ -64,7 +64,7 @@
                                                     <div href="#chairs_modal" data-toggle="modal" data-target="#modal"
                                                        id="{{$application->id}}" class="application">
                                                         <div class="box">
-                                                            <div class="box-body" onclick="">
+                                                            <div class="box-body" >
                                                                 <div class="row">
                                                                     <div class="col-md-9 pull-right ">
                                                                         <strong class="pull-right">{{$application->candidate->name}}</strong>
@@ -105,7 +105,6 @@
                 </div>
             </div>
         </div>
-        <div id="test"><a href="">click me</a>
 
         </div>
         <div id="testresult">

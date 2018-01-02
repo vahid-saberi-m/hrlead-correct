@@ -15,14 +15,14 @@
             </div>
             <div class="box">
                 <div class="row">
-                    @foreach($cvfolders as $folder)
-                        @if($folder->id != $cvfolder->id)
+                    {{--@foreach($cvfolders as $folder)--}}
+                        {{--@if($folder->id != $cvfolder->id)--}}
 
-                            <button class="btn btn-info btn-xs col-sm-4" id="cvfolder"
-                                    onclick="cvFolderUpdate('{{$application->id}}','{{$folder->id}}')">{{$folder->name}}</button>
+                            {{--<button class="btn btn-info btn-xs col-sm-4" id="cvfolder"--}}
+                                    {{--onclick="cvFolderUpdate('{{$application->id}}','{{$folder->id}}')">{{$folder->name}}</button>--}}
 
-                        @endif
-                    @endforeach
+                        {{--@endif--}}
+                    {{--@endforeach--}}
                 </div>
             </div>
         </div>
@@ -70,7 +70,7 @@
                 var newcvfolder = '/application/' + applicationId + '/' + cvfolderid;
                 $.ajax({
                     url: newcvfolder,
-                    type: 'GET',
+                    type: 'GET' ,
                     data: {"cv_folder_id": cvfolderid},
                     success: function (data) {
                         console.log(data);

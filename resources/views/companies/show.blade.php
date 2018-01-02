@@ -1,7 +1,7 @@
 @extends('layouts/app')
 @section('content')
 
-    <div class="callout callout-info">
+    <div class="callout callout-info text-right">
         <a href="//{{$company->website}}">
             <img class="pull-right margin " src="/images/logos/{{$company->logo}}" alt="{{$company->name}}"
                  style="width:82px;height:82px;border:2;">
@@ -40,6 +40,8 @@
         </div>
 
     </div>
+
+
     <div class="col-md-12 text-right">
         <div class="box box-solid">
             <div class="box-header with-border">
@@ -113,9 +115,6 @@
             <!-- /.box-body -->
         </div>
         <!-- /.box -->
-    </div>
-    <div id="app">
-        @{{ message }}
     </div>
     @foreach($jobposts as $jobpost)
         @if($jobpost->approval == 1)
@@ -192,7 +191,7 @@
     @endforeach
     <!-- Site footer -->
     <footer class="footer">
-        <p>powered by <a href="hrlead.ir>">HRLead.ir</a></p>
+        {{--<p>powered by <a href="hrlead.ir>">HRLead.ir</a></p>--}}
     </footer>
     <script>
 

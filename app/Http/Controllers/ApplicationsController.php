@@ -62,13 +62,13 @@ class ApplicationsController extends Controller
 //        dd($application->candidate_id);
         $candidate= $application->Candidate;
         $cvfolder= $application->CvFolder;
-        $cvfolders= $cvfolder->JobPost->CvFolders;
+//        $cvfolders= $cvfolder->JobPost->CvFolders;
         $applications= $cvfolder->Applications;
         return view('public.applications',[
             'application'=>$application,
             'candidate'=>$candidate,
             'cvfolder'=>$cvfolder,
-            'cvfolders'=>$cvfolders,
+//            'cvfolders'=>$cvfolders,
             'applications'=>$applications,
 
         ]);

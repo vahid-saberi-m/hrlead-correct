@@ -26,6 +26,7 @@
         "propellerkit-datetimepicker": "^1.1.0",
         "propellerkit-range-slider": "^1.1.0",
         "propellerkit-select2": "^1.1.0",
+        "vue-router": "^3.0.1",
         "vue-template-compiler": "^2.5.13"
     }
 }

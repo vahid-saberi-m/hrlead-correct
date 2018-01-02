@@ -42,5 +42,9 @@ class JobPost extends Model
     {
         return $this->hasMany('App\Models\Application');
     }
+    public function Questions()
+    {
+        return $this->hasMany('App\Models\Question');
+    }
 
 }

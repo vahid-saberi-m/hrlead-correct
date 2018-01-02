@@ -34,4 +34,8 @@ class Company extends Model
     public function JobPosts(){
         return $this->hasMany('App\Models\JobPost', 'company_id');
     }
+    public function Events()
+    {
+        return $this->hasMany('App\Models\Event');
+    }
 }
