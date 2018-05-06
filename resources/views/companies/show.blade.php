@@ -143,8 +143,8 @@
                         <hr>
                         {{$jobpost->benefits}}
                         <br> <br> <br> <br>
-                        <button type="button" class="btn btn-social btn-google" data-toggle="modal"
-                                data-target="#{{$jobpost->id}}" onclick="var jobpost= '{{$jobpost->id}}'">
+                        <button type="button" class="btn btn-social apply btn-google" data-toggle="modal"
+                                data-target=".modal" id="{{$jobpost->id}}" value="{{$jobpost->title}}" >
                             <i class="fa fa-google-plus  "></i> رزومه خود را بفرستید
                         </button>
 
@@ -153,54 +153,110 @@
                 </div>
                 <!-- /.box -->
             </div>
-            <div class="modal fade" id="{{$jobpost->id}}" style="display: none;">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            {{$jobpost->title}}
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span></button>
-                        </div>
-                        <div class="modal-body" id="modal{{$jobpost->id}}">
-                            <form class="form">
-                                <div class="form-group">
-                                    {{csrf_field()}}
-                                    <input type="hidden" id="token" value="{{ csrf_token() }}">
-                                    <label for="exampleInputEmail1">ایمیل خود را وارد نمایید</label>
-                                    <input type="email" class="form-control" id="email{{$jobpost->id}}" name="email"
-                                           placeholder="email"
-                                           required>
-                                </div>
 
-                                <button type="submit" id="{{$jobpost->id}}" class="btn btn-primary btn-submit pull-left"
-                                        onsubmit="checkEmail({{$jobpost->id}})">ثبت اطلاعات
-                                </button>
-                                <button onclick="checkEmail({{$jobpost->id}})"> ali</button>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-
-                        </div>
-
-                    </div>
-                    <!-- /.modal-content -->
-                </div>
-                <!-- /.modal-dialog -->
-            </div>
         @endif
     @endforeach
+    <div class="col-md-6">
+        <div class="box box-solid">
+            <div class="box-header with-border text-right">
+                <h3 class="box-title ">اخبار و رویدادها</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class=""></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="2" class="active"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        @foreach($events as $event)
+                        <div class="item">
+                            <img src="/{{$event->main_photo}}"text="{{$event->title}}"  >
+                            <div class="carousel-caption">
+                                First Slide
+                            </div>
+                        </div>
+                        @endforeach
+                        <div class="item">
+                            <img src="http://placehold.it/900x500/3c8dbc/ffffff&amp;text=I+Love+Bootstrap" alt="Second slide">
+
+                            <div class="carousel-caption">
+                                Second Slide
+                            </div>
+                        </div>
+                        <div class="item active">
+                            <img src="http://placehold.it/900x500/f39c12/ffffff&amp;text=I+Love+Bootstrap" alt="Third slide">
+
+                            <div class="carousel-caption">
+                                Third Slide
+                            </div>
+                        </div>
+                    </div>
+                    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                        <span class="fa fa-angle-left"></span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                        <span class="fa fa-angle-right"></span>
+                    </a>
+                </div>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+
+    <div class="modal fade" id="" style="display: none;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                <strong id="header"></strong>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body" id="modal">
+                    <form class="form">
+                        <div class="form-group">
+                            {{csrf_field()}}
+                            <label for="exampleInputEmail1">ایمیل خود را وارد نمایید</label>
+                            <input type="email" class="form-control" id="email" name="email"
+                                   placeholder="email"
+                                   required>
+                        </div>
+
+                        <button type="button" id="" class="btn btn-primary btn-submit pull-left">
+                            ثبت اطلاعات
+                        </button>
+                    </form>
+                </div>
+                <div class="modal-footer">
+
+                </div>
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
     <!-- Site footer -->
     <footer class="footer">
         {{--<p>powered by <a href="hrlead.ir>">HRLead.ir</a></p>--}}
     </footer>
     <script>
+        $('.apply').click( function () {
+            var id= $(this).attr('id');
+            var title= $(this).attr('value');
+            $('#header').html( title );
+            $('.btn-primary').attr('id', id)
+            }
 
+        )
     </script>
     <script type="text/javascript">
         $(".btn-submit").click(function (e) {
             e.preventDefault();
             var jobpost = $(this).attr('id');
-            var email = $('#' + 'email' + jobpost).val();
+            var email = $('#email').val();
             var data = {"_token": "{{ csrf_token() }}", email: email};
             var url = '/candidate/checkemail/' + jobpost;
             $.ajax({
@@ -209,7 +265,7 @@
                 data: data,
                 success: function (mydata) {
                     $mydata = $(mydata);
-                    $('#' + 'modal' + jobpost).fadeOut().html($mydata).fadeIn();
+                    $('.modal-body').fadeOut().html($mydata).fadeIn();
                     // alert(data.success);
                 }
 

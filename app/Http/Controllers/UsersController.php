@@ -15,15 +15,14 @@ class UsersController extends Controller
     public function index()
     {
         $company = auth()->user()->Company;
-        $user = auth()->user();
-        $jobposts = auth()->user()->JobPosts;
-        $companyusers = $company->Users;
-            return view('users.index', [
-                'user'=> $user,
-                'companyusers'=> $companyusers,
-                'company'=>$company,
-                'jobposts'=> $jobposts
-            ]);
+        $admins = $company->Users->where('role', 'LIKE', 'admin');
+        $companyUsers = $company->Users->where('role', '!=', 'admin')->where('is_approved', 'LIKE', '1');
+        $weightingUsers = $company->Users->where('role', '!=', 'admin')->where('is_approved', '!=', '1');
+        return view('users.index', [
+            'admins' => $admins,
+            'companyUsers' => $companyUsers,
+            'weightingUsers' => $weightingUsers
+        ]);
 
 
     }
@@ -41,7 +40,7 @@ class UsersController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
@@ -52,7 +51,7 @@ class UsersController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
     public function show(User $user)
@@ -78,14 +77,14 @@ class UsersController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
     public function edit(User $user)
     {
         $user = auth()->user();
         $jobposts = auth()->user()->JobPosts;
-        $company=auth()->user()->Company;
+        $company = auth()->user()->Company;
         return view('users.edit', [
             'jobposts' => $jobposts,
             'company' => $company,
@@ -96,64 +95,36 @@ class UsersController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\User  $user
+     * @param  \Illuminate\Http\Request $request
+     * @param  \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, User $user)
     {
         //
     }
-    public function approved(Request $request, User $user)
+
+    public function approval(Request $request, User $user)
     {
-        //save
-        $approved = User::where('id',$user->id)-> update([
-            'is_approved'=> $request->input('approved')
-        ]);
-
-        if($approved)
-        {     $user = auth()->user();
-            $jobposts = auth()->user()->JobPosts;
-            $company = auth()->user()->company;
-            $companyusers = $company->Users;
-            return view('/Users/index',[
-            'companyusers'=> $companyusers,
-                'jobposts' => $jobposts,
-                'company' => $company,
-                'user' => $user,
+        $approval = $request->approval;
+        if ($approval == 1) {
+            $approved = User::where('id', $user->id)->update([
+                'is_approved' => $approval
             ]);
-        } else{
-            var_dump($user->id);
+            }
+        if ($approval==0){
+            $rejected = User::find($user->id);
+            $rejected->Delete();
+
         }
-
-
     }
 
-    public function rejected(Request $request, User $user)
-    { $rejected = User::find($user->id);
-        $rejected->Delete();
 
-        if($rejected)
-        {     $user = auth()->user();
-            $jobposts = auth()->user()->JobPosts;
-            $company = auth()->user()->company;
-            $companyusers = $company->Users;
-            return view('/Users/index',[
-            'companyusers'=> $companyusers,
-                'jobposts' => $jobposts,
-                'company' => $company,
-                'user' => $user,
-            ]);
-        } else{
-            var_dump($user->id);
-        }
-
-    }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\User  $user
+     * @param  \App\Models\User $user
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user)

@@ -1,68 +1,152 @@
-@extends('users.show')
-@section('section')
-    @foreach($jobposts as $jobpost)
-        @if($jobpost->approval != 1)
-            <div class="col-md-9 pull-right text-right	">
-                <div class="box box-warning">
-                    <div class="box-header with-border">
-                        <h3 class="box-title pull-left">{{$jobpost->title}}</h3>
+@foreach($jobposts as $jobpost)
+    @if($jobpost->approval == 0)
+        <div class="col-md-9  text-right" dir="rtl">
+            <div class="box box-warning">
+                <div class="box-header with-border">
+                    <h3 class="box-title pull-left">{{$jobpost->title}}</h3>
 
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
-                                        class="fa fa-minus"></i>
-                            </button>
-                        </div>
-                        <!-- /.box-tools -->
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                    class="fa fa-minus"></i>
+                        </button>
                     </div>
-                    <!-- /.box-header -->
-                    <div class="box-body">
+                    <!-- /.box-tools -->
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
 
-                        <div class="pull-right">
-                            <strong>شرح موقعیت شغلی:</strong>
-                            <hr>
-                            {{$jobpost->description}}
+                    <div class="pull-right">
+                        <strong>شرح موقعیت شغلی:</strong>
+                        <hr>
+                        {{$jobpost->description}}
 
-                            <br> <br> <br> <br>
-                            <strong>ویژگی های مورد نیاز</strong>
-                            <hr>
-                            {{$jobpost->requirements}}
-                            <br> <br> <br> <br>
-                            <strong>مزایا:</strong>
-                            <hr>
-                            {{$jobpost->benefits}}
-                            <br> <br> <br> <br>
-                            <div class="row">
-                                <div class=" col-md-3">
-                                    <form method="post"
-                                          action="{{ route('jobposts.approved', ['job_post' => $jobpost->id ])}}">
-                                        {{ csrf_field() }}
-                                        {{ method_field('PATCH') }}
-                                        <input type="hidden" name="approved" value="1">
-                                        <div class="form-group">
-                                            <button type="submit" class="btn  btn-success">تایید</button>
-                                        </div>
-                                    </form>
-                                </div>
-                                <div class="pull-right col-md-6"></div>
-                                <div class=" col-md-3">
-                                    <form method="post"
-                                          action="{{ route('jobposts.rejected', ['job_post' => $jobpost->id ])}}">
-                                        {{ csrf_field() }}
-                                        {{ method_field('PATCH') }}
-                                        <input type="hidden" name="approved" value="0">
-                                        <div class="form-group">
-                                            <button type="submit" class="btn  btn-danger">رد</button>
-                                        </div>
-                                    </form>
-                                </div>
+                        <br> <br> <br> <br>
+                        <strong>ویژگی های مورد نیاز</strong>
+                        <hr>
+                        {{$jobpost->requirements}}
+                        <br> <br> <br> <br>
+                        <strong>مزایا:</strong>
+                        <hr>
+                        {{$jobpost->benefits}}
+                        <br> <br> <br> <br>
+                        <div class="row">
+                            <div class=" col-md-3">
+                                <button type="button" class="btn approval btn-success" value="1" id="{{$jobpost->id}}">تایید</button>
                             </div>
+                            <div class=" col-md-3">
+                                <button type="button" class="btn approval btn-danger" value="2" id="{{$jobpost->id}}">رد</button>
+                            </div>
+
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-        @endif
-    @endforeach
-    <!-- /.box-body -->
-    <!-- /.box -->
-@endsection
+    @endif
+@endforeach
+@foreach($jobposts as $jobpost)
+    @if($jobpost->approval == 2)
+        <div class="col-md-9  text-right" dir="rtl">
+            <div class="box box-danger">
+                <div class="box-header with-border">
+                    <h3 class="box-title pull-left">{{$jobpost->title}}</h3>
+
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
+                                    class="fa fa-minus"></i>
+                        </button>
+                    </div>
+                    <!-- /.box-tools -->
+                </div>
+                <!-- /.box-header -->
+                <div class="box-body">
+
+                    <div class="pull-right">
+                        <strong>شرح موقعیت شغلی:</strong>
+                        <hr>
+                        {{$jobpost->description}}
+
+                        <br> <br> <br> <br>
+                        <strong>ویژگی های مورد نیاز</strong>
+                        <hr>
+                        {{$jobpost->requirements}}
+                        <br> <br> <br> <br>
+                        <strong>مزایا:</strong>
+                        <hr>
+                        {{$jobpost->benefits}}
+                        <br> <br> <br> <br>
+                        <div class="row">
+                            <div class=" col-md-3">
+                                <button type="button" class="btn approval btn-success" value="1" id="{{$jobpost->id}}">انتشار</button>
+                            </div>
+                            <div class=" col-md-3">
+                                <button type="button" class="btn delete btn-danger" value="2" id="{{$jobpost->id}}">حذف</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    @endif
+@endforeach
+<script>
+    $('.approval ').click(function (e) {
+        e.preventDefault();
+        var status= $(this).attr('value');
+        var id= $(this).attr('id');
+        var data = {
+            "_token": "{{ csrf_token() }}",
+            approval: status
+        };
+        var url = '/jobposts/' + id + '/approval' ;
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'POST',
+            url: url,
+            data: data,
+            success: function (mydata) {
+                $mydata = $(mydata);
+                $('#section1' ).fadeOut().html($mydata).fadeIn();
+                // alert(data.success);
+            },
+            failure: function (t) {
+                console.log(t)
+            }
+
+        });
+
+
+    })
+</script>
+
+<script>
+    $('.delete ').click(function (e) {
+        e.preventDefault();
+        var id= $(this).attr('id');
+        var data = {
+            "_token": "{{ csrf_token() }}",
+        };
+        var url = '/jobposts/' + id + '/delete' ;
+        $.ajax({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            type: 'GET',
+            url: url,
+            data: data,
+            success: function (mydata) {
+                $mydata = $(mydata);
+                $('#section1' ).fadeOut().html($mydata).fadeIn();
+            },
+            failure: function (t) {
+                console.log(t)
+            }
+
+        });
+    })
+</script>

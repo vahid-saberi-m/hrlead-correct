@@ -8,7 +8,7 @@
         <header class="main-header">
 
             <!-- Logo -->
-            <a href="index2.html" class="logo">
+            <a href="" class="logo">
                 <!-- mini logo for sidebar mini 50x50 pixels -->
                 <span class="logo-mini"><b>A</b>LT</span>
                 <!-- logo for regular state and mobile devices -->
@@ -199,7 +199,7 @@
                 <ul class="sidebar-menu tree" data-widget="tree">
                     <li class="header">HEADER</li>
                     <!-- Optionally, you can add icons to the links -->
-                    <li class="active"><a href="/jobposts/create"><i class="fa fa-pencil-square-o"></i> <span>ثبت آگهی جدید</span></a>
+                    <li class="active"><a href="#" id="/jobposts/create" class="item"><i class="fa fa-pencil-square-o"></i> <span>ثبت آگهی جدید</span></a>
                     </li>
                     @if($user->role=='admin')
                         <li class="treeview" id="management">
@@ -209,19 +209,19 @@
                                 </span>
                             </a>
                             <ul class="treeview-menu">
-                                <li><a href="/companies/{{$company->id}}/edit"><i class="fa  fa-file-text-o"></i> <span>اطلاعات سایت استخدامی</span></a>
+                                <li><a href="#" id="/companies/{{$company->id}}/edit" class="item"><i class="fa  fa-file-text-o"></i> <span>اطلاعات سایت استخدامی</span></a>
                                 </li>
-                                <li><a href="/jobposts.waiting/{{$company->id}}/"><i class="fa  fa-hourglass-2"></i>
+                                <li><a href="#" id="/jobposts.waiting/{{$company->id}}/" class="item"><i class="fa  fa-hourglass-2"></i>
                                         <span>آگهی های در انتظار تایید</span></a></li>
-                                <li><a href="/jobposts.approved/{{$company->id}}/"><i class="fa  fa-check-square-o"></i>
+                                <li><a href="#" id="/jobposts.approved/{{$company->id}}/" class="item"><i class="fa  fa-check-square-o"></i>
                                         <span>آگهی های منتشر شده</span></a></li>
-                                <li><a href="/users/index/"><i class="fa  fa-group"></i>
+                                <li><a href="#" id="/users/index/" class="item" ><i class="fa  fa-group" ></i>
                                         <span>کاربران</span></a></li>
-
-
+                                <li><a href="#" id="/events" class="item" ><i class="fa  fa-group" ></i>
+                                        <span>رویدادها</span></a></li>
                             </ul>
                     @endif
-                    <li class="treeview" id="jobposts">
+                    <li class="treeview" id="item">
                         <a href="#jobposts"><i class="fa fa-link" id="jobposts"></i> <span>آگهی های شما</span>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
@@ -229,7 +229,7 @@
                         </a>
                         <ul class="treeview-menu">
                             @foreach($jobposts as $jobpost)
-                                <li><a href="/jobposts/{{$jobpost->id}}">{{$jobpost->title}}</a></li>
+                                <li><a href="#" id="/jobposts/{{$jobpost->id}}" class="item">{{$jobpost->title}}</a></li>
                             @endforeach
                         </ul>
                     </li>
@@ -240,30 +240,29 @@
         </aside>
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper"  >
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <h1>
-                    {{--Page Header--}}
-                    <small></small>
-                </h1>
-                <ol class="breadcrumb">
-                    <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-                    <li class="active">Here</li>
-                </ol>
-            </section>
-
-            <!-- Main content -->
-            {{--<section class="content container-fluid">--}}
-
-            @yield('section')
+        <div class="content-wrapper container col-md-12 text-right pull-right " id="section1"  >
             <!--------------------------
                   | Your Page Content Here |
                   -------------------------->
-
-            {{--</section>--}}
-            <!-- /.content -->
         </div>
-    {{--</div>--}}
-    {{--</body>--}}
+      <script>
+        $('.item').click(
+            function (e) {
+                e.preventDefault();
+                var url = $(this).attr('id');
+                $.ajax({
+                        url: url,
+                        success: function (dat) {
+                            console.log(dat);
+                            $('#section1').html(dat)
+                        },
+                        error: function (dat) {
+                            console.log(dat);
+                            $('#section1').append('<br>' + dat.statusText);
+                        }
+                    }
+                );
+            })
+    </script>
+
 @endsection

@@ -1,6 +1,4 @@
-@extends('users/show')
-@section('section')
-    <div class="col-lg-9 pull-right ">
+    <div class="col-lg-9">
         <div class="box box-info ">
             <div class="box-header with-border">
                 <h3 class="box-title">مشخصات آگهی شغلی</h3>
@@ -136,10 +134,4 @@
         <footer class="footer">
 
         </footer>
-
-
-@endsection
-
-
-{{--@include('/admin/partials/sidebar')--}}
 

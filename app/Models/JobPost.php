@@ -23,7 +23,8 @@ class JobPost extends Model
         'approval',
         'location',
         'publish_date',
-        'expiration_date'
+        'expiration_date',
+        'is_active'
     ];
 
     public function User()

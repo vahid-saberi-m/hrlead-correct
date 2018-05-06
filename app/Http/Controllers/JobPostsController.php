@@ -27,38 +27,25 @@ class JobPostsController extends Controller
 
     public function indexApproved()
     {
-        //
-        if (Auth::check() && auth()->user()->role == 'admin') {
-            $company = auth()->user()->company;
-            $id = auth()->user()->company->id;
-            $jobposts = $company->JobPosts;
-//            $waitingjobposts = $company->JobPosts;
-            $user = auth()->user();
-            return view('JobPosts.admin.ApprovedJobPosts',
-                ['jobposts' => $jobposts,
-                    'user' => $user,
-                    'company' => $company,
-                ]);
-        }
+        $company = auth()->user()->company;
+        $jobposts = $company->JobPosts->where('approval', '=', 1);
+        $user = auth()->user();
+        return view('JobPosts.admin.ApprovedJobPosts',
+            [
+                'jobposts' => $jobposts,
+            ]);
     }
 
 
     public function indexWaiting()
     {
         //
-        if (Auth::check() && auth()->user()->role == 'admin') {
-            $company = auth()->user()->company;
-            $id = auth()->user()->company->id;
-            $jobposts = $company->JobPosts;
-//            $waitingjobposts = $company->JobPosts;
-            $user = auth()->user();
-            return view('JobPosts.admin.WaitingJobPosts',
-                ['jobposts' => $jobposts,
-                    'user' => $user,
-                    'company' => $company,
-//                    'waitingjobposts' => $waitingjobposts,
-                ]);
-        }
+        $company = auth()->user()->company;
+        $jobposts = $company->JobPosts->where('approval', '!=', 1);
+        return view('JobPosts.admin.WaitingJobPosts',
+            [
+                'jobposts' => $jobposts,
+            ]);
     }
 
 
@@ -67,7 +54,7 @@ class JobPostsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id = null)
+    public function create()
     {
         $company = auth()->user()->company;
         $id = auth()->user()->company->id;
@@ -104,7 +91,7 @@ class JobPostsController extends Controller
                 'approval' => '0',
                 'user_id' => auth()->user()->id,
                 'company_id' => auth()->user()->company_id,
-                'is_active'=> '0' ,
+                'is_active' => '0',
             ]);
             $company = auth()->user()->company;
             $id = auth()->user()->company->id;
@@ -140,12 +127,14 @@ class JobPostsController extends Controller
 
                 ]);
                 if ($cv_folder1 && $cv_folder2 && $cv_folder3 && $cv_folder4) {
-                    return redirect()->route('jobposts.show', ['jobpost' => $jobpost->id])
-                        ->with('success', ' صفحه شرکت با موفقیت ساخته شد.');
-                }
+                    return view('JobPosts.questions', [
+                        'jobpost'=>$jobpost
+                    ]);                }
             }
         }
-        return back()->withInput()->with('error', 'خطایی در ثبت شرکت شما به وجود آمد');
+        return view('JobPosts.questions', [
+            'jobpost'=>$jobpost
+        ]);
     }
 
     /**
@@ -156,26 +145,17 @@ class JobPostsController extends Controller
      */
     public function show(JobPost $jobpost)
     {
-        //
-
         if (Auth::check()) {
-            $user = auth()->user();
-            $jobposts = auth()->user()->JobPosts;
-            $jobpost = JobPost::find($jobpost->id);
-            $cvfolders = $jobpost->CvFolders;
-            $applications= $jobpost->Applications;
-            $company = $jobpost->company;
-if ($applications){
 
-            return view('JobPosts.show', [
-                'jobpost' => $jobpost,
-                'cvfolders' => $cvfolders,
-                'jobposts' => $jobposts,
-                'company' => $company,
-                'user' => $user,
-                'applications'=> $applications,
-            ]);
-}
+            $cvfolders = $jobpost->CvFolders;
+            $applications = $jobpost->Applications;
+            if ($applications) {
+                return view('JobPosts.show', [
+                    'jobpost' => $jobpost,
+                    'cvfolders' => $cvfolders,
+                    'applications' => $applications,
+                ]);
+            }
         }
     }
 
@@ -187,23 +167,10 @@ if ($applications){
      */
     public function edit(JobPost $jobpost)
     {
-        //
-        if (Auth::check()) {
-            $user = auth()->user();
-            $jobposts = auth()->user()->JobPosts;
-            $jobpost = JobPost::find($jobpost->id);
-            $company = $jobpost->company;
-            $applications= Application::where('job_post_id','=',$jobpost->id );
             return view('JobPosts.edit', [
                 'jobpost' => $jobpost,
-                'jobposts' => $jobposts,
-                'company' => $company,
-                'user' => $user,
-                'applications'=> $applications,
             ]);
         }
-        return view('auth.login');
-    }
 
     /**
      * Update the specified resource in storage.
@@ -232,14 +199,14 @@ if ($applications){
             $jobpost = JobPost::find($jobpost->id);
             $company = $jobpost->company;
             $cvfolders = $jobpost->CvFolders;
-            $applications= Application::where('job_post_id','=',$jobpost->id );
+            $applications = Application::where('job_post_id', '=', $jobpost->id);
             return view('JobPosts.show', [
                 'jobpost' => $jobpost,
                 'jobposts' => $jobposts,
                 'company' => $company,
                 'user' => $user,
                 'cvfolders' => $cvfolders,
-                'applications'=> $applications,
+                'applications' => $applications,
 
             ])
                 ->with('success', 'اطلاعات صفحه اصلی سایت استخدامی شما با موفقیت به روز رسانی شد. ');
@@ -249,46 +216,32 @@ if ($applications){
 
     }
 
-    public function approved(Request $request, JobPost $jobpost)
+    public function approval(Request $request, JobPost $jobpost)
     {
-        //save
-        $approved = JobPost::where('id',$jobpost->id)-> update([
-            'approval'=> $request->input('approved')
-            ]);
+        $approved = $jobpost->update([
+            'approval' => $request->input('approval')
+        ]);
 
-        if($approved)
-        {     $user = auth()->user();
-            $jobposts = auth()->user()->JobPosts;
-            $company = auth()->user()->company;
-           return view('/JobPosts/admin/WaitingJobPosts',[
-               'jobposts' => $jobposts,
-               'company' => $company,
-               'user' => $user,
-           ]);
-        } else{
+        if ($approved) {
+            $jobposts = auth()->user()->JobPosts->where('approvel','!=',1);
+            return view('/JobPosts/admin/WaitingJobPosts', [
+                'jobposts' => $jobposts,
+            ]);
+        } else {
             var_dump($jobpost->id);
         }
 
 
     }
 
-    public function rejected(Request $request, JobPost $jobpost)
-    { $rejected = JobPost::find($jobpost->id);
-        $rejected->Delete();
+    public function delete(Request $request, JobPost $jobpost)
+    {
+        $jobpost->Delete();
 
-        if($rejected)
-        {     $user = auth()->user();
             $jobposts = auth()->user()->JobPosts;
-            $company = auth()->user()->company;
-            return view('/JobPosts/admin/WaitingJobPosts',[
+            return view('/JobPosts/admin/WaitingJobPosts', [
                 'jobposts' => $jobposts,
-                'company' => $company,
-                'user' => $user,
             ]);
-        } else{
-            var_dump($jobpost->id);
-        }
-
     }
 
     /**
@@ -297,47 +250,36 @@ if ($applications){
      * @param  \App\Models\JobPost $jobpost
      * @return \Illuminate\Http\Response
      */
-    public function expired(JobPost $jobpost)
+    public function expire(JobPost $jobpost)
     {
-        //save
-        $expired = JobPost::where('id',$jobpost->id)-> update([
-            'is_active'=>'o'
+            $jobpost->update([
+            'is_active' => 0
         ]);
-
-        if($expired)
-        {     $user = auth()->user();
-            $jobposts = auth()->user()->JobPosts;
-            $company = auth()->user()->company;
-            return view('/JobPosts/admin/WaitingJobPosts',[
+            $jobposts = auth()->user()->JobPosts->where('approval','=',1);
+            return view('/JobPosts/admin/ApprovedJobPosts', [
                 'jobposts' => $jobposts,
-                'company' => $company,
-                'user' => $user,
             ]);
-        } else{
-            var_dump($jobpost->id);
-        }
-
 
     }
 
     public function reactive(Request $request, JobPost $jobpost)
     {
         //save
-        $expired = JobPost::where('id',$jobpost->id)-> update([
-            'expiration_date'=>$request->input('expiration_date'),
-            'is_active'=>'1'
+        $expired = JobPost::where('id', $jobpost->id)->update([
+            'expiration_date' => $request->input('expiration_date'),
+            'is_active' => '1'
         ]);
 
-        if($expired)
-        {     $user = auth()->user();
+        if ($expired) {
+            $user = auth()->user();
             $jobposts = auth()->user()->JobPosts;
             $company = auth()->user()->company;
-            return view('/JobPosts/admin/ApprovedJobPosts',[
+            return view('/JobPosts/admin/ApprovedJobPosts', [
                 'jobposts' => $jobposts,
                 'company' => $company,
                 'user' => $user,
             ]);
-        } else{
+        } else {
             var_dump($jobpost->id);
         }
 

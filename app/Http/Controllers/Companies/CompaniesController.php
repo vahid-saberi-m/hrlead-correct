@@ -96,14 +96,12 @@ class CompaniesController extends Controller
     }
     public function PublicShow(Company $company)
     {
-        //
-        $company = Company::find($company->id);
-        $id=$company->id;
         $jobposts = $company->JobPosts;
+        $events= $company->Events;
         return view('companies.show', [
             'company' => $company,
             'jobposts' => $jobposts,
-
+            'events'=> $events
         ]);
     }
 
@@ -118,14 +116,9 @@ class CompaniesController extends Controller
     {
         //
         if (Auth::check()) {
-            $user = auth()->user();
-            $jobposts = auth()->user()->JobPosts;
-            $company = auth()->user()->company;
 
             return view('Companies.edit', [
                 'company' => $company,
-                'user'=>$user,
-                'jobposts'=>$jobposts
             ]);
         }
         return view('auth.login');
@@ -140,30 +133,51 @@ class CompaniesController extends Controller
      */
     public function update(Request $request, Company $company)
     {
-        //save
-        $companyUpdate = Company::where('id', $company->id)->update([
-            'name' => $request->input('name'),
-            'company_size' => $request->input('company_size'),
-            'slogan' => $request->input('slogan'),
-            'website' => $request->input('website'),
-            'logo' => $request->input('logo'),
-            'message_title' => $request->input('message_title'),
-            'message_content' => $request->input('message_content'),
-            'main_photo' => $request->input('main_photo'),
-            'about_us' => $request->input('about_us'),
-            'why_us' => $request->input('why_us'),
-            'recruiting_steps' => $request->input('recruiting_steps'),
-            'address' => $request->input('address'),
-            'email' => $request->input('email'),
-            'phone_number' => $request->input('phone_number'),
-            'location' => $request->input('location'),
-        ]);
-        if ($companyUpdate) {
-            return redirect()->route('Companies.show', ['company' => $company->id])
-                ->with('success', 'اطلاعات صفحه اصلی سایت استخدامی شما با موفقیت به روز رسانی شد. ');
+        if ($request->hasFile('main_photo')) {
+            $destinationPath = "images/companyImages/$company->id/" ;
+            $image = $request->file('main_photo');
+            $name = $image->getClientOriginalName();
+            $extension = $image->getClientOriginalExtension();
+            $file_name = $name;
+            $path=$image->move($destinationPath, $file_name);}
+            else{
+            $path= $company->main_photo;
+            }
+//        $mainPhoto = $request->file('main_photo')->store('/images/companyImages/');
+        if ($request->hasFile('logo')) {
+            $logo = $request->file('logo');
+            $logofile = $logo->getClientOriginalName();
+            $extension1 = $logo->getClientOriginalExtension();
+            $file_name = $name;
+            $logoimage = $logo->move("images/logos/$company->id/", $file_name);
+        } else{
+            $logoimage= $company->logo;
         }
-        //redirect
-        return back()->withInput();
+            $companyUpdate = $company->update([
+                'name' => $request->input('name'),
+                'company_size' => $request->input('company_size'),
+                'slogan' => $request->input('slogan'),
+                'website' => $request->input('website'),
+                'logo' => $logoimage,
+                'message_title' => $request->input('message_title'),
+                'message_content' => $request->input('message_content'),
+                'main_photo' => $path,
+                'about_us' => $request->input('about_us'),
+                'why_us' => $request->input('why_us'),
+                'recruiting_steps' => $request->input('recruiting_steps'),
+                'address' => $request->input('address'),
+                'email' => $request->input('email'),
+                'phone_number' => $request->input('phone_number'),
+                'location' => $request->input('location'),
+            ]);
+            if ($companyUpdate) {
+                return view('companies.edit', [
+                    'company' => $company
+                ]);
+            }
+            return back()->withInput();
+//        }
+//        dd('123');
 
     }
 
