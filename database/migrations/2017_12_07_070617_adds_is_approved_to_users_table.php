@@ -14,7 +14,7 @@ class AddsIsApprovedToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->smallInteger('is_approved');
+            $table->smallInteger('is_approved')->nullable() ;
         });
     }
 
