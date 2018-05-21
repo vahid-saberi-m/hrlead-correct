@@ -19,7 +19,7 @@ class CreateCompanyJobPostTable extends Migration
             $table->unsignedInteger('job_post_id');
             $table->timestamps();
             $table->foreign('company_id')->references('id')->on('companies');
-            $table->foreign('job_post_id')->references('id')->on('job_posts');
+            $table->foreign('job_post_id')->references('id')->on('jobposts');
         });
     }
 

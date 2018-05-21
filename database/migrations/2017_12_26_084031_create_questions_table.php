@@ -16,13 +16,13 @@ class CreateQuestionsTable extends Migration
         Schema::create('questions', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('company_id');
-            $table->unsignedInteger('job_post_id');
+            $table->unsignedInteger('jobPost_id');
             $table->string('question','200');
             $table->timestamps();
             $table->softDeletes();
 
             $table->foreign('company_id')->references('id')->on('companies');
-            $table->foreign('job_post_id')->references('id')->on('job_posts');
+            $table->foreign('jobpost_id')->references('id')->on('jobPosts');
 
 
         });
