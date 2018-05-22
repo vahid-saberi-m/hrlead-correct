@@ -70,6 +70,10 @@ class CompaniesController extends Controller
                 'user_id' => auth()->user()->id
             ]);
             if ($company) {
+                $companyId= $company->id;
+                $user=auth()->user();
+                $user-> company_id= $companyId;
+                $user->save();
                 return redirect()->route('companies.show', ['company' => $company->id])
                     ->with('success', ' صفحه شرکت با موفقیت ساخته شد.');
             }

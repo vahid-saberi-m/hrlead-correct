@@ -18,7 +18,7 @@ class AddForeignApplications extends Migration
             $table->foreign('candidate_id')->references('id')->on('candidates');
             $table->foreign('job_post_id')->references('id')->on('JobPosts');
             $table->foreign('cv_id')->references('id')->on('cv_ids');
-
+            $table->foreign('cv_folder_id')->references('id')->on('cv_folders');
         });
     }
 
