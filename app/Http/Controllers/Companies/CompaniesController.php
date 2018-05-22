@@ -45,21 +45,21 @@ class CompaniesController extends Controller
         //
 
         if (Auth::check()) {
-            $file= $request ->file('logo');
-            $name=$file->getClientOriginalName();
-            $file-> move('/images/logos', $name);
-            $input['logo'] = $name;
-
-
+//            $file= $request ->file('logo');
+//            $name=$file->getClientOriginalName();
+//            $file-> move('/images/logos', $name);
+            $path = $request->file('logo')->store('/images/logos');
+            $mainPhoto = $request->file('main_photo')->store('/images/mainPhotos');
+            $input['logo'] = $path;
             $company = Company::create([
                 'name' => $request->input('name'),
                 'company_size' => $request->input('company_size'),
                 'slogan' => $request->input('slogan'),
                 'website' => $request->input('website'),
-                'logo' => $request->input('logo'),
+                'logo' => $path ,
                 'message_title' => $request->input('message_title'),
                 'message_content' => $request->input('message_content'),
-                'main_photo' => $request->input('main_photo'),
+                'main_photo' => $mainPhoto,
                 'about_us' => $request->input('about_us'),
                 'why_us' => $request->input('why_us'),
                 'recruiting_steps' => $request->input('recruiting_steps'),
@@ -70,7 +70,7 @@ class CompaniesController extends Controller
                 'user_id' => auth()->user()->id
             ]);
             if ($company) {
-                return redirect()->route('Companies.show', ['company' => $company->id])
+                return redirect()->route('companies.show', ['company' => $company->id])
                     ->with('success', ' صفحه شرکت با موفقیت ساخته شد.');
             }
         }
@@ -88,10 +88,11 @@ class CompaniesController extends Controller
         //
         $company = Company::find($company->id);
         $jobPosts = $company->JobPosts;
+        $events= $company->Events;
         return view('Companies.show', [
             'company' => $company,
-            'JobPosts' => $jobPosts,
-
+            'jobPosts' => $jobPosts,
+            'events'=> $events
         ]);
     }
     public function PublicShow(Company $company)

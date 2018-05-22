@@ -23,7 +23,8 @@ Route::get('/home',  function () {
     return view('public.public');
 
 });
-
+Route::resource('companies', 'CompaniesController');
+Route::get('/companies/create', 'CompaniesController@create');
 
 Route::get('/public/jobpost/{jobpost}', 'CandidatesController@PublicShow');
 
@@ -54,8 +55,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('questions', 'QuestionsController');
 });
 
+
 Route::group(['middleware'=>['auth','isAdmin']],function () {
-    Route::resource('companies', 'CompaniesController');
 //    Route::patch('users/{user}/rejected', 'UsersController@rejected')->name('users.rejected')->middleware('isCompanyUser');
     Route::post('/users/{user}/approval', 'UsersController@approval')->name('users.approval')->middleware('isCompanyUser');
     Route::get('/users/index/', 'UsersController@index');

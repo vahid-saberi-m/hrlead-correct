@@ -93,7 +93,7 @@
                             type="file"
                             id="main_photo"
                             required
-                            name="logo"
+                            name="main_photo"
                             class="form-control"
                     />
 
@@ -167,7 +167,7 @@
                         <input
                                 id="location"
                                 required
-                                name="phone_number"
+                                name="location"
                                 spellcheck="false"
                                 class="form-control"
                         />

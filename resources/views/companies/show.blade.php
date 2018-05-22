@@ -116,15 +116,15 @@
         </div>
         <!-- /.box -->
     </div>
-    @foreach($jobposts as $jobpost)
-        @if($jobpost->approval == 1)
+    @foreach($jobPosts as $joPpost)
+        @if($jobPost->approval == 1)
             <div class="col-md-12">
                 <div class="box box-default box-solid collapsed-box ">
                     <div class="box-header with-border ">
                         <h3 class="box-title  "></h3>
                         <div class="box-tools pull-right ">
                             <button type="button" class="btn btn-box-tool " data-widget="collapse">
-                                {{$jobpost->title}} <i class="fa fa-plus "></i>
+                                {{$jobPost->title}} <i class="fa fa-plus "></i>
                             </button>
                         </div>
                         <!-- /.box-tools -->
@@ -133,18 +133,18 @@
                     <div class="box-body text-right" style="">
                         <strong>شرح موقعیت شغلی:</strong>
                         <hr>
-                        {{$jobpost->description}}
+                        {{$jobPost->description}}
                         <br> <br> <br> <br>
                         <strong>ویژگی های مورد نیاز</strong>
                         <hr>
-                        {{$jobpost->requirements}}
+                        {{$jobPost->requirements}}
                         <br> <br> <br> <br>
                         <strong>مزایا:</strong>
                         <hr>
-                        {{$jobpost->benefits}}
+                        {{$jobPost->benefits}}
                         <br> <br> <br> <br>
                         <button type="button" class="btn btn-social apply btn-google" data-toggle="modal"
-                                data-target=".modal" id="{{$jobpost->id}}" value="{{$jobpost->title}}" >
+                                data-target=".modal" id="{{$jobPost->id}}" value="{{$jobPost->title}}" >
                             <i class="fa fa-google-plus  "></i> رزومه خود را بفرستید
                         </button>
 
