@@ -45,9 +45,6 @@ class CompaniesController extends Controller
         //
 
         if (Auth::check()) {
-//            $file= $request ->file('logo');
-//            $name=$file->getClientOriginalName();
-//            $file-> move('/images/logos', $name);
             $path = $request->file('logo')->store('/images/logos');
             $mainPhoto = $request->file('main_photo')->store('/images/mainPhotos');
             $input['logo'] = $path;

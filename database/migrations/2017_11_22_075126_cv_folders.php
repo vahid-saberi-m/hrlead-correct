@@ -24,6 +24,7 @@ class CvFolders extends Migration
             $table->unsignedInteger('company_id');
             $table->foreign('company_id')->references('id')->on('companies');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
