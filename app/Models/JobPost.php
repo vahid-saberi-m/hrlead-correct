@@ -10,7 +10,7 @@ class JobPost extends Model
 {
     use SoftDeletes;
     protected $dates = ['deleted_at'];
-    protected $table = 'job_posts';
+    protected $table = 'jobposts';
 
     protected $fillable = [
         'company_id',
