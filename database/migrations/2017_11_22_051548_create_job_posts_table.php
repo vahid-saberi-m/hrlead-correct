@@ -24,9 +24,11 @@ class CreateJobPostsTable extends Migration
             $table->longText('benefits')->nullable();
             $table->integer('approval');
             $table->string('location');
-            $table->timestamps();
             $table->date('expiration_date');
             $table->date('publish_date');
+            $table->boolean('is_active')->nullable() ;
+            $table->timestamps();
+            $table->softDeletes();
 
 
         });

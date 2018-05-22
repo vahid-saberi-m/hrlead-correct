@@ -26,6 +26,7 @@ class CreateCandidatesTable extends Migration
             $table->string('degree');
             $table->string('university')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

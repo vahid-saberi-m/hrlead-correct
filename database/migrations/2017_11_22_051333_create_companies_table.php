@@ -31,9 +31,8 @@ class CreateCompaniesTable extends Migration
             $table->string('email')->nullable();
             $table->integer('phone_number');
             $table->string('location')->nullable();
-
-
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

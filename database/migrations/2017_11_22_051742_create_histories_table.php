@@ -20,6 +20,7 @@ class CreateHistoriesTable extends Migration
             $table->text('content');
             $table->string('type');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

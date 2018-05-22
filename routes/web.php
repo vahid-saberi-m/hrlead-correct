@@ -15,10 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/userhome', ['middleware' => 'isAdmin', function () {
+Route::get('/userhome',  function () {
     return view('pages.userhome');
 
-}]);
+});
 Route::get('/home',  function () {
     return view('public.public');
 

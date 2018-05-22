@@ -17,8 +17,8 @@ class CreateCvIdsTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('candidate_id');
             $table->string('cv');
-
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
